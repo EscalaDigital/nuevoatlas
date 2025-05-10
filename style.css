@@ -229,7 +229,7 @@ body, html {
 /* Contenedor del mapa */
 .map-container {
     flex-grow: 1; 
-    background-color: #dde5e8; 
+    background-color: #AAD3df; 
     min-height: 300px; 
 }
 
