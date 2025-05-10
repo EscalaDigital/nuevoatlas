@@ -1,0 +1,171 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f0f0f0; /* Color de fondo general similar al de la imagen */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: #f8f9fa; /* Un color claro para la barra lateral */
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    color: #333;
+}
+
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #005a87; /* Azul principal para títulos */
+}
+
+.layer-category {
+    margin-bottom: 15px;
+}
+
+.category-toggle {
+    background-color: #e9ecef; /* Fondo ligeramente más oscuro para el botón */
+    color: #005a87; /* Azul principal */
+    border: 1px solid #ced4da;
+    padding: 10px 15px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.category-toggle:hover {
+    background-color: #dde2e6;
+}
+
+.category-toggle.active + .layers-content {
+    display: block;
+}
+
+.layers-content {
+    display: none;
+    padding: 10px 0 0 10px;
+    border-left: 2px solid #007bff; /* Línea azul para indicar contenido activo */
+    margin-top: 5px;
+}
+
+.layers-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    cursor: pointer;
+}
+
+.layers-content input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #007bff; /* Color del checkbox */
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-header {
+    background-color: #e0e0e0; /* Color crema claro como en la imagen */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.map-header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #005a87; /* Azul principal */
+}
+
+.map-views button {
+    background-color: #007bff; /* Azul para botones principales */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.map-views button:hover {
+    background-color: #0056b3;
+}
+
+#homeButton {
+    background-color: #6c757d; /* Un color neutro para el botón home */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+#homeButton:hover {
+    background-color: #5a6268;
+}
+
+.map {
+    flex-grow: 1;
+    background-color: #aad3df; /* Color de fondo especificado para el mapa */
+}
+
+footer {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.8em;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+    color: #555;
+}
+
+/* Estilos para responsividad */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 40vh; /* Limitar altura en móviles */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .map-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .map-views {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .map-views button {
+        margin-left: 0;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .map-header h1 {
+        font-size: 1.5em;
+    }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>deep seek</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Map Layers</h2>
+            <div class="layer-category">
+                <button class="category-toggle">Base Layers</button>
+                <div class="layers-content" style="display: block;"> <!-- OSM visible por defecto -->
+                    <label>
+                        <input type="checkbox" class="layer-checkbox" data-layer-type="osm" checked> Street Map (OSM)
+                    </label>
+                </div>
+            </div>
+
+            <div class="layer-category">
+                <button class="category-toggle">Study Sites and Seabed Mining</button>
+                <div class="layers-content">
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:areas_estudio" data-layer-title="Study sites"> Study sites</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:Hydrothermal" data-layer-title="Hydrothermal vents"> Hydrothermal vents</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:plate" data-layer-title="Tectonic plate"> Tectonic plate</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:cobalt" data-layer-title="Cobalt-rich crust"> Cobalt-rich crust</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:polymetallic" data-layer-title="Polymetallic nodules"> Polymetallic nodules</label>
+                </div>
+            </div>
+
+            <div class="layer-category">
+                <button class="category-toggle">🌊 Oceans and Geopolitics</button>
+                <div class="layers-content">
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G8" data-layer-title="G8 members"> G8 members</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G8_EEZ_ECS" data-layer-title="G8 marine jurisdictions"> G8 marine jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G20" data-layer-title="G20 members"> G20 members</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G20_EEZ_ECS" data-layer-title="G20 marine jurisdictions"> G20 marine jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G77" data-layer-title="G77 members"> G77 members</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G77_EEZ_ECS" data-layer-title="G77 marine jurisdictions"> G77 marine jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:eu_juris" data-layer-title="EU jurisdiction"> EU jurisdiction</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:mercosur" data-layer-title="MERCOSUR"> MERCOSUR</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:mercosur_juris" data-layer-title="MERCOSUR jurisdictions"> MERCOSUR jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:arab_league" data-layer-title="Arab League"> Arab League</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:arab_juris" data-layer-title="Arab League jurisdictions"> Arab League jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:apec" data-layer-title="APEC"> APEC</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:apec_juris" data-layer-title="APEC jurisdictions"> APEC jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:coastal_african" data-layer-title="Coastal African States"> Coastal African States</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:african_EEZ_ECS" data-layer-title="Coastal African States jurisdictions"> Coastal African States jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:OTAN" data-layer-title="NATO"> NATO</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:OTAN_EEZ_ECS" data-layer-title="NATO members jurisdictions"> NATO members jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:AOSIS" data-layer-title="AOSIS"> AOSIS</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:AOSIS_EEZ_ECS" data-layer-title="AOSIS jurisdictions"> AOSIS jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:CARICOM" data-layer-title="CARICOM"> CARICOM</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:CARICOM_EEZ_ECS" data-layer-title="CARICOM jurisdictions"> CARICOM jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:SIDS" data-layer-title="SIDS"> SIDS</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:SIDS_EEZ_ECS" data-layer-title="SIDS jurisdictions"> SIDS jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:PSIDS" data-layer-title="PSIDS"> PSIDS</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:PSIDS_EEZ_ECS" data-layer-title="PSIDS jurisdictions"> PSIDS jurisdictions</label>
+                </div>
+            </div>
+
+            <div class="layer-category">
+                <button class="category-toggle">⚖️ Jurisdictions and Maritime Boundaries</button>
+                <div class="layers-content">
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:territorial" data-layer-title="Territorial sea"> Territorial sea</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:contiguous" data-layer-title="Contiguous zone"> Contiguous zone</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ZEE" data-layer-title="Exclusive Economic Zone (EEZ)"> Exclusive Economic Zone (EEZ)</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ECS" data-layer-title="Extended Continental Shelf (ECS)"> Extended Continental Shelf (ECS)</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:archipelagicas" data-layer-title="Archipelagic waters"> Archipelagic waters</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:area" data-layer-title="Area (Seabed soil and subsoil)"> Area (Seabed soil and subsoil)</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:alta_mar" data-layer-title="High seas"> High seas</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:border_dispute" data-layer-title="Maritime border and disputes"> Maritime border and disputes</label>
+                </div>
+            </div>
+
+            <div class="layer-category">
+                <button class="category-toggle">🏛️ Governance</button>
+                <div class="layers-content">
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:MSP" data-layer-title="Marine spatial planning"> Marine spatial planning</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:MSP_EEZ_ECS" data-layer-title="Marine Spatial Planning jurisdiction"> Marine Spatial Planning jurisdiction</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:UNCLOS" data-layer-title="UNCLOS Maritime zones"> UNCLOS Maritime zones</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:FAO" data-layer-title="FAO fishing areas"> FAO fishing areas</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:NAFO" data-layer-title="NAFO"> NAFO</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ICES" data-layer-title="ICES Ecoregions"> ICES Ecoregions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ices_statistical" data-layer-title="ICES Statistical Areas"> ICES Statistical Areas</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ASCOBANS" data-layer-title="ASCOBANS"> ASCOBANS</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:IHO" data-layer-title="IHO"> IHO</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:GOAS" data-layer-title="Global Oceans and Seas (GOAS)"> Global Oceans and Seas (GOAS)</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:UNEP" data-layer-title="UNEP Regional Seas"> UNEP Regional Seas</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:LME" data-layer-title="LME-Biogeographical Provinces"> LME-Biogeographical Provinces</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:MEOW" data-layer-title="Marine Ecoregions of the World (MEOW)"> Marine Ecoregions of the World (MEOW)</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ecoregions" data-layer-title="Ecoregions EU WFD"> Ecoregions EU WFD</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:OSPAR" data-layer-title="OSPAR"> OSPAR</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:rfbs" data-layer-title="Regional Fishery Bodies (1)"> Regional Fishery Bodies (1)</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:rfbs2" data-layer-title="Regional Fishery Bodies (2)"> Regional Fishery Bodies (2)</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:sargasso" data-layer-title="Sargasso Sea Commission"> Sargasso Sea Commission</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:state_islands" data-layer-title="State Islands"> State Islands</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:state_islands_EEZ" data-layer-title="State Islands Jurisdictions"> State Islands Jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:landlocked" data-layer-title="Landlocked developing countries"> Landlocked developing countries</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:developing" data-layer-title="Developing middle income"> Developing middle income</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:geographically" data-layer-title="Geographically disadvantaged States"> Geographically disadvantaged States</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:least" data-layer-title="Least developed countries"> Least developed countries</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:fragile" data-layer-title="Fragile states"> Fragile states</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:BRICS" data-layer-title="BRICS"> BRICS</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:BRICS_juris" data-layer-title="BRICS Jurisdictions"> BRICS Jurisdictions</label>
+                </div>
+            </div>
+
+            <div class="layer-category">
+                <button class="category-toggle">⚙️ Uses and Activities</button>
+                <div class="layers-content">
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:capture_production" data-layer-title="Capture production by countries"> Capture production by countries</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:capture_production_juris" data-layer-title="Capture production. Jurisdictions"> Capture production. Jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:fisheries" data-layer-title="Major historical deep-sea fisheries"> Major historical deep-sea fisheries</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:iuu_fishing" data-layer-title="IUU fishing"> IUU fishing</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:iuu_atlantic_juris" data-layer-title="IUU fishing Jurisdictions"> IUU fishing Jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:moratorium" data-layer-title="Moratorium on deep sea mining"> Moratorium on deep sea mining</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:mineral_rents" data-layer-title="Mineral Rents"> Mineral Rents</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:sponsor" data-layer-title="Sponsoring States"> Sponsoring States</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:PNS" data-layer-title="Polymetallic nodules"> Polymetallic nodules</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:sulphides" data-layer-title="Polymetallic sulphides"> Polymetallic sulphides</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ferroman" data-layer-title="Cobalt-rich ferromanganese crusts"> Cobalt-rich ferromanganese crusts</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:cobalt_poly" data-layer-title="Cobalt-rich polymetallic crusts"> Cobalt-rich polymetallic crusts</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:gen_reso_count" data-layer-title="Patents by country"> Patents by country</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:gen_reso_juris" data-layer-title="Patents by country. Jurisdictions"> Patents by country. Jurisdictions</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:gene_edi_countries" data-layer-title="Editing capacity"> Editing capacity</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:gene_edi_juris" data-layer-title="Editing capacity. Jurisdiction"> Editing capacity. Jurisdiction</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:submarine_cable" data-layer-title="Submarine Cable"> Submarine Cable</label>
+                </div>
+            </div>
+
+            <div class="layer-category">
+                <button class="category-toggle">🌱 Environment and Conservation</button>
+                <div class="layers-content">
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:hotspots" data-layer-title="Biodiversity hotspots"> Biodiversity hotspots</label>
+                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:PSSA" data-layer-title="Particularly Sensitive Sea Areas"> Particularly Sensitive Sea Areas</label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="map-header">
+                <h1>deep seek</h1>
+                <div class="map-views">
+                    <button id="globalView">🌍 Global View</button>
+                    <button id="arcticView">❄️ Arctic View</button>
+                    <button id="atlanticView">🌊 Atlantic Ocean</button>
+                    <button id="pacificView">🏞️ Pacific Ocean</button>
+                </div>
+                <button id="homeButton" title="Reset View">🏠</button>
+            </header>
+            <div id="map" class="map"></div>
+            <footer>
+                Explore different regions of our planet with dynamic map projections. Powered by OpenLayers.
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
