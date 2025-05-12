@@ -21,6 +21,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Función para actualizar las capas WMS cuando cambia la proyección
+    function updateWmsLayers(newProjection) {
+        Object.entries(activeWmsLayers).forEach(([layerName, layer]) => {
+            // Obtener la visibilidad actual de la capa
+            const isVisible = layer.getVisible();
+            
+            // Remover la capa antigua
+            map.removeLayer(layer);
+            
+            // Crear una nueva fuente WMS con la proyección actualizada
+            const wmsSource = new ol.source.ImageWMS({
+                url: WMS_URL,
+                params: {
+                    'LAYERS': layerName,
+                    'VERSION': '1.1.1',
+                    'SRS': newProjection.getCode() // Usar el código de la nueva proyección
+                },
+                serverType: 'geoserver',
+                crossOrigin: 'anonymous',
+                projection: newProjection
+            });
+
+            // Crear una nueva capa con la fuente actualizada
+            const newWmsLayer = new ol.layer.Image({
+                source: wmsSource,
+                visible: isVisible,
+                zIndex: layer.getZIndex()
+            });
+
+            // Añadir la nueva capa al mapa y actualizar la referencia
+            map.addLayer(newWmsLayer);
+            activeWmsLayers[layerName] = newWmsLayer;
+        });
+    }
+
     function initMap() {
         osmLayer = new ol.layer.Tile({
             source: new ol.source.OSM(),
@@ -70,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkbox.addEventListener('change', (event) => {
                 const layerName = event.target.dataset.layerName;
                 const layerType = event.target.dataset.layerType;
+                const currentProjection = map.getView().getProjection();
 
                 if (layerType === 'osm') {
                     osmLayer.setVisible(event.target.checked);
@@ -80,9 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (!activeWmsLayers[layerName]) {
                             const wmsSource = new ol.source.ImageWMS({
                                 url: WMS_URL,
-                                params: { 'LAYERS': layerName },
+                                params: {
+                                    'LAYERS': layerName,
+                                    'VERSION': '1.1.1',
+                                    'SRS': currentProjection.getCode()
+                                },
                                 serverType: 'geoserver',
-                                crossOrigin: 'anonymous'
+                                crossOrigin: 'anonymous',
+                                projection: currentProjection
                             });
                             const wmsLayer = new ol.layer.Image({
                                 source: wmsSource,
@@ -91,12 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                             map.addLayer(wmsLayer);
                             activeWmsLayers[layerName] = wmsLayer;
+                        } else {
+                            activeWmsLayers[layerName].setVisible(true);
                         }
-                    } else {
-                        if (activeWmsLayers[layerName]) {
-                            map.removeLayer(activeWmsLayers[layerName]);
-                            delete activeWmsLayers[layerName];
-                        }
+                    } else if (activeWmsLayers[layerName]) {
+                        activeWmsLayers[layerName].setVisible(false);
                     }
                 }
             });
@@ -118,6 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
             zoom: zoom
         });
         map.setView(newView);
+
+        // Actualizar las capas WMS con la nueva proyección
+        updateWmsLayers(targetProjection);
     }
 
     function setupViewButtons() {
