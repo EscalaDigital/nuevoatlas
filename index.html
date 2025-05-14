@@ -4,145 +4,329 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Globe Trotter</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- OpenLayers CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
-    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script> <!-- Añadido Proj4js -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Proj4js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 </head>
-<body>
-    <div class="container">
-        <aside class="sidebar">
-            <h2>Map Layers</h2>
-            <div class="layer-category">
-                <button class="category-toggle active">Base Layers</button>                <div class="layers-content open" style="display: block;">
-                    <label>
-                        <span class="toggle-switch-label">Esri Satellite with Labels</span>
-                        <input type="checkbox" class="layer-checkbox" data-layer-type="esri" checked>
-                        <span class="slider"></span>
-                    </label>
-                    <label>
-                        <span class="toggle-switch-label">OpenStreetMap</span>
-                        <input type="checkbox" class="layer-checkbox" data-layer-type="osm">
-                        <span class="slider"></span>
-                    </label>
-                    <label>
-                        <span class="toggle-switch-label">Esri Ocean</span>
-                        <input type="checkbox" class="layer-checkbox" data-layer-type="ocean">
-                        <span class="slider"></span>
-                    </label>
-                    <label>
-                        <span class="toggle-switch-label">OpenTopoMap</span>
-                        <input type="checkbox" class="layer-checkbox" data-layer-type="topo">
-                        <span class="slider"></span>
-                    </label>
+<body class="vh-100">
+    <div class="container-fluid h-100 p-0">
+        <div class="row h-100 g-0">
+            <aside class="col-md-3 col-lg-2 bg-light sidebar overflow-auto">            <h2 class="h5 p-3 mb-0 border-bottom">Map Layers</h2>
+            <div class="accordion" id="layersAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#baseLayers" aria-expanded="true" aria-controls="baseLayers">
+                            Base Layers
+                        </button>
+                    </h2>
+                    <div id="baseLayers" class="accordion-collapse collapse show" data-bs-parent="#layersAccordion">                        <div class="accordion-body p-2">
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="esriLayer" data-layer-type="esri" checked>
+                                <label class="form-check-label" for="esriLayer">Esri Satellite with Labels</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="osmLayer" data-layer-type="osm">
+                                <label class="form-check-label" for="osmLayer">OpenStreetMap</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="oceanLayer" data-layer-type="ocean">
+                                <label class="form-check-label" for="oceanLayer">Esri Ocean</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="topoLayer" data-layer-type="topo">
+                                <label class="form-check-label" for="topoLayer">OpenTopoMap</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="layer-category">                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#seabedLayers" aria-expanded="false" aria-controls="seabedLayers">
+                            Study Sites and Seabed Mining
+                        </button>
+                    </h2>
+                    <div id="seabedLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
+                        <div class="accordion-body p-2">                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="studySites" data-layer-name="Deep_Rest:areas_estudio" data-layer-title="Study sites">
+                                <label class="form-check-label" for="studySites">Study sites</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="hydrothermal" data-layer-name="Deep_Rest:Hydrothermal" data-layer-title="Hydrothermal vents">
+                                <label class="form-check-label" for="hydrothermal">Hydrothermal vents</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="tectonicPlate" data-layer-name="Deep_Rest:plate" data-layer-title="Tectonic plate">
+                                <label class="form-check-label" for="tectonicPlate">Tectonic plate</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="cobaltCrust" data-layer-name="Deep_Rest:cobalt" data-layer-title="Cobalt-rich crust">
+                                <label class="form-check-label" for="cobaltCrust">Cobalt-rich crust</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="polymetallic" data-layer-name="Deep_Rest:polymetallic" data-layer-title="Polymetallic nodules">
+                                <label class="form-check-label" for="polymetallic">Polymetallic nodules</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="layer-category">                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#geopoliticsLayers" aria-expanded="false" aria-controls="geopoliticsLayers">
+                            Oceans and Geopolitics
+                        </button>
+                    </h2>
+                    <div id="geopoliticsLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
+                        <div class="accordion-body p-2">                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="g8members" data-layer-name="Deep_Rest:G8" data-layer-title="G8 members">
+                                <label class="form-check-label" for="g8members">G8 members</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="g8juris" data-layer-name="Deep_Rest:G8_EEZ_ECS" data-layer-title="G8 marine jurisdictions">
+                                <label class="form-check-label" for="g8juris">G8 marine jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="g20members" data-layer-name="Deep_Rest:G20" data-layer-title="G20 members">
+                                <label class="form-check-label" for="g20members">G20 members</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="g20juris" data-layer-name="Deep_Rest:G20_EEZ_ECS" data-layer-title="G20 marine jurisdictions">
+                                <label class="form-check-label" for="g20juris">G20 marine jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="g77members" data-layer-name="Deep_Rest:G77" data-layer-title="G77 members">
+                                <label class="form-check-label" for="g77members">G77 members</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="g77juris" data-layer-name="Deep_Rest:G77_EEZ_ECS" data-layer-title="G77 marine jurisdictions">
+                                <label class="form-check-label" for="g77juris">G77 marine jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="eujuris" data-layer-name="Deep_Rest:eu_juris" data-layer-title="EU jurisdiction">
+                                <label class="form-check-label" for="eujuris">EU jurisdiction</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="mercosur" data-layer-name="Deep_Rest:mercosur" data-layer-title="MERCOSUR">
+                                <label class="form-check-label" for="mercosur">MERCOSUR</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="mercosurjuris" data-layer-name="Deep_Rest:mercosur_juris" data-layer-title="MERCOSUR jurisdictions">
+                                <label class="form-check-label" for="mercosurjuris">MERCOSUR jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="arableague" data-layer-name="Deep_Rest:arab_league" data-layer-title="Arab League">
+                                <label class="form-check-label" for="arableague">Arab League</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="arabjuris" data-layer-name="Deep_Rest:arab_juris" data-layer-title="Arab League jurisdictions">
+                                <label class="form-check-label" for="arabjuris">Arab League jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="apec" data-layer-name="Deep_Rest:apec" data-layer-title="APEC">
+                                <label class="form-check-label" for="apec">APEC</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="apecjuris" data-layer-name="Deep_Rest:apec_juris" data-layer-title="APEC jurisdictions">
+                                <label class="form-check-label" for="apecjuris">APEC jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="africanstates" data-layer-name="Deep_Rest:coastal_african" data-layer-title="Coastal African States">
+                                <label class="form-check-label" for="africanstates">Coastal African States</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="africanjuris" data-layer-name="Deep_Rest:african_EEZ_ECS" data-layer-title="Coastal African States jurisdictions">
+                                <label class="form-check-label" for="africanjuris">Coastal African States jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="nato" data-layer-name="Deep_Rest:OTAN" data-layer-title="NATO">
+                                <label class="form-check-label" for="nato">NATO</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="natojuris" data-layer-name="Deep_Rest:OTAN_EEZ_ECS" data-layer-title="NATO members jurisdictions">
+                                <label class="form-check-label" for="natojuris">NATO members jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="aosis" data-layer-name="Deep_Rest:AOSIS" data-layer-title="AOSIS">
+                                <label class="form-check-label" for="aosis">AOSIS</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="aosisjuris" data-layer-name="Deep_Rest:AOSIS_EEZ_ECS" data-layer-title="AOSIS jurisdictions">
+                                <label class="form-check-label" for="aosisjuris">AOSIS jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="caricom" data-layer-name="Deep_Rest:CARICOM" data-layer-title="CARICOM">
+                                <label class="form-check-label" for="caricom">CARICOM</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="caricomjuris" data-layer-name="Deep_Rest:CARICOM_EEZ_ECS" data-layer-title="CARICOM jurisdictions">
+                                <label class="form-check-label" for="caricomjuris">CARICOM jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="sids" data-layer-name="Deep_Rest:SIDS" data-layer-title="SIDS">
+                                <label class="form-check-label" for="sids">SIDS</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="sidsjuris" data-layer-name="Deep_Rest:SIDS_EEZ_ECS" data-layer-title="SIDS jurisdictions">
+                                <label class="form-check-label" for="sidsjuris">SIDS jurisdictions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="psids" data-layer-name="Deep_Rest:PSIDS" data-layer-title="PSIDS">
+                                <label class="form-check-label" for="psids">PSIDS</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="psidsjuris" data-layer-name="Deep_Rest:PSIDS_EEZ_ECS" data-layer-title="PSIDS jurisdictions">
+                                <label class="form-check-label" for="psidsjuris">PSIDS jurisdictions</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="layer-category">                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jurisdictionsLayers" aria-expanded="false" aria-controls="jurisdictionsLayers">
+                            Jurisdictions and Maritime Boundaries
+                        </button>
+                    </h2>
+                    <div id="jurisdictionsLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
+                        <div class="accordion-body p-2">                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="territorialsea" data-layer-name="Deep_Rest:territorial" data-layer-title="Territorial sea">
+                                <label class="form-check-label" for="territorialsea">Territorial sea</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="contiguouszone" data-layer-name="Deep_Rest:contiguous" data-layer-title="Contiguous zone">
+                                <label class="form-check-label" for="contiguouszone">Contiguous zone</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="eez" data-layer-name="Deep_Rest:ZEE" data-layer-title="Exclusive Economic Zone (EEZ)">
+                                <label class="form-check-label" for="eez">Exclusive Economic Zone (EEZ)</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="ecs" data-layer-name="Deep_Rest:ECS" data-layer-title="Extended Continental Shelf (ECS)">
+                                <label class="form-check-label" for="ecs">Extended Continental Shelf (ECS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="archipelagic" data-layer-name="Deep_Rest:archipelagicas" data-layer-title="Archipelagic waters">
+                                <label class="form-check-label" for="archipelagic">Archipelagic waters</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="seabedarea" data-layer-name="Deep_Rest:area" data-layer-title="Area (Seabed soil and subsoil)">
+                                <label class="form-check-label" for="seabedarea">Area (Seabed soil and subsoil)</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="highseas" data-layer-name="Deep_Rest:alta_mar" data-layer-title="High seas">
+                                <label class="form-check-label" for="highseas">High seas</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="disputes" data-layer-name="Deep_Rest:border_dispute" data-layer-title="Maritime border and disputes">
+                                <label class="form-check-label" for="disputes">Maritime border and disputes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="layer-category">                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#governanceLayers" aria-expanded="false" aria-controls="governanceLayers">
+                            Governance
+                        </button>
+                    </h2>
+                    <div id="governanceLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
+                        <div class="accordion-body p-2">                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="msp" data-layer-name="Deep_Rest:MSP" data-layer-title="Marine spatial planning">
+                                <label class="form-check-label" for="msp">Marine spatial planning</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="mspjuris" data-layer-name="Deep_Rest:MSP_EEZ_ECS" data-layer-title="Marine Spatial Planning jurisdiction">
+                                <label class="form-check-label" for="mspjuris">Marine Spatial Planning jurisdiction</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="unclos" data-layer-name="Deep_Rest:UNCLOS" data-layer-title="UNCLOS Maritime zones">
+                                <label class="form-check-label" for="unclos">UNCLOS Maritime zones</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="fao" data-layer-name="Deep_Rest:FAO" data-layer-title="FAO fishing areas">
+                                <label class="form-check-label" for="fao">FAO fishing areas</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="nafo" data-layer-name="Deep_Rest:NAFO" data-layer-title="NAFO">
+                                <label class="form-check-label" for="nafo">NAFO</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="ices" data-layer-name="Deep_Rest:ICES" data-layer-title="ICES Ecoregions">
+                                <label class="form-check-label" for="ices">ICES Ecoregions</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="icesstat" data-layer-name="Deep_Rest:ices_statistical" data-layer-title="ICES Statistical Areas">
+                                <label class="form-check-label" for="icesstat">ICES Statistical Areas</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="ascobans" data-layer-name="Deep_Rest:ASCOBANS" data-layer-title="ASCOBANS">
+                                <label class="form-check-label" for="ascobans">ASCOBANS</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="layer-category">                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#usesLayers" aria-expanded="false" aria-controls="usesLayers">
+                            Uses and Activities
+                        </button>
+                    </h2>
+                    <div id="usesLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
+                        <div class="accordion-body p-2">
+                            <!-- Contenido futuro para Uses and Activities -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#environmentLayers" aria-expanded="false" aria-controls="environmentLayers">
+                            Environment and Conservation
+                        </button>
+                    </h2>
+                    <div id="environmentLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
+                        <div class="accordion-body p-2">
+                            <!-- Contenido futuro para Environment and Conservation -->
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="layer-category">
-                <button class="category-toggle">Study Sites and Seabed Mining</button>
-                <div class="layers-content">
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:areas_estudio" data-layer-title="Study sites"> Study sites</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:Hydrothermal" data-layer-title="Hydrothermal vents"> Hydrothermal vents</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:plate" data-layer-title="Tectonic plate"> Tectonic plate</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:cobalt" data-layer-title="Cobalt-rich crust"> Cobalt-rich crust</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:polymetallic" data-layer-title="Polymetallic nodules"> Polymetallic nodules</label>
-                </div>
+        </aside><div class="col-md-9 col-lg-10 d-flex flex-column h-100 p-0">
+                <header class="bg-dark text-white py-2 px-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-globe fs-4 me-2"></i>
+                            <h1 class="h4 mb-0">DEEP SEEK</h1>
+                        </div>
+                        <div class="btn-group">
+                            <button id="globalView" class="btn btn-outline-light btn-sm"><i class="fas fa-globe-americas me-1"></i> Global View</button>
+                            <button id="arcticView" class="btn btn-outline-light btn-sm"><i class="fas fa-snowflake me-1"></i> Arctic View</button>
+                            <button id="atlanticView" class="btn btn-outline-light btn-sm"><i class="fas fa-water me-1"></i> Atlantic Ocean</button>
+                            <button id="pacificView" class="btn btn-outline-light btn-sm"><i class="fas fa-water me-1"></i> Pacific Ocean</button>
+                            <button class="btn btn-outline-light btn-sm" id="homeButton"><i class="fas fa-home"></i></button>
+                        </div>
+                    </div>
+                </header>
+                <main id="map" class="flex-grow-1">
+                </main>
+                <footer class="bg-dark text-white py-2 px-3 text-center">
+                    <small>Explore different regions of our planet with dynamic map projections. Powered by OpenLayers.</small>
+                </footer>
             </div>
-
-            <div class="layer-category">
-                <button class="category-toggle">Oceans and Geopolitics</button>
-                <div class="layers-content">
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G8" data-layer-title="G8 members"> G8 members</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G8_EEZ_ECS" data-layer-title="G8 marine jurisdictions"> G8 marine jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G20" data-layer-title="G20 members"> G20 members</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G20_EEZ_ECS" data-layer-title="G20 marine jurisdictions"> G20 marine jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G77" data-layer-title="G77 members"> G77 members</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:G77_EEZ_ECS" data-layer-title="G77 marine jurisdictions"> G77 marine jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:eu_juris" data-layer-title="EU jurisdiction"> EU jurisdiction</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:mercosur" data-layer-title="MERCOSUR"> MERCOSUR</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:mercosur_juris" data-layer-title="MERCOSUR jurisdictions"> MERCOSUR jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:arab_league" data-layer-title="Arab League"> Arab League</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:arab_juris" data-layer-title="Arab League jurisdictions"> Arab League jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:apec" data-layer-title="APEC"> APEC</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:apec_juris" data-layer-title="APEC jurisdictions"> APEC jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:coastal_african" data-layer-title="Coastal African States"> Coastal African States</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:african_EEZ_ECS" data-layer-title="Coastal African States jurisdictions"> Coastal African States jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:OTAN" data-layer-title="NATO"> NATO</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:OTAN_EEZ_ECS" data-layer-title="NATO members jurisdictions"> NATO members jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:AOSIS" data-layer-title="AOSIS"> AOSIS</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:AOSIS_EEZ_ECS" data-layer-title="AOSIS jurisdictions"> AOSIS jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:CARICOM" data-layer-title="CARICOM"> CARICOM</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:CARICOM_EEZ_ECS" data-layer-title="CARICOM jurisdictions"> CARICOM jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:SIDS" data-layer-title="SIDS"> SIDS</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:SIDS_EEZ_ECS" data-layer-title="SIDS jurisdictions"> SIDS jurisdictions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:PSIDS" data-layer-title="PSIDS"> PSIDS</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:PSIDS_EEZ_ECS" data-layer-title="PSIDS jurisdictions"> PSIDS jurisdictions</label>
-                </div>
-            </div>
-
-            <div class="layer-category">
-                <button class="category-toggle">Jurisdictions and Maritime Boundaries</button>
-                <div class="layers-content">
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:territorial" data-layer-title="Territorial sea"> Territorial sea</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:contiguous" data-layer-title="Contiguous zone"> Contiguous zone</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ZEE" data-layer-title="Exclusive Economic Zone (EEZ)"> Exclusive Economic Zone (EEZ)</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ECS" data-layer-title="Extended Continental Shelf (ECS)"> Extended Continental Shelf (ECS)</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:archipelagicas" data-layer-title="Archipelagic waters"> Archipelagic waters</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:area" data-layer-title="Area (Seabed soil and subsoil)"> Area (Seabed soil and subsoil)</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:alta_mar" data-layer-title="High seas"> High seas</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:border_dispute" data-layer-title="Maritime border and disputes"> Maritime border and disputes</label>
-                </div>
-            </div>
-
-            <div class="layer-category">
-                <button class="category-toggle">Governance</button>
-                <div class="layers-content">
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:MSP" data-layer-title="Marine spatial planning"> Marine spatial planning</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:MSP_EEZ_ECS" data-layer-title="Marine Spatial Planning jurisdiction"> Marine Spatial Planning jurisdiction</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:UNCLOS" data-layer-title="UNCLOS Maritime zones"> UNCLOS Maritime zones</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:FAO" data-layer-title="FAO fishing areas"> FAO fishing areas</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:NAFO" data-layer-title="NAFO"> NAFO</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ICES" data-layer-title="ICES Ecoregions"> ICES Ecoregions</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ices_statistical" data-layer-title="ICES Statistical Areas"> ICES Statistical Areas</label>
-                    <label><input type="checkbox" class="layer-checkbox" data-layer-name="Deep_Rest:ASCOBANS" data-layer-title="ASCOBANS"> ASCOBANS</label>
-                </div>
-            </div>
-
-            <div class="layer-category">
-                <button class="category-toggle">Uses and Activities</button>
-                <div class="layers-content">
-                </div>
-            </div>
-
-            <div class="layer-category">
-                <button class="category-toggle">Environment and Conservation</button>
-                <div class="layers-content">
-                </div>
-            </div>
-        </aside>
-
-        <div class="main-area">
-            <header class="site-header">
-                <div class="title-container">
-                    <i class="fas fa-globe"></i> 
-                    <h1>DEEP SEEK</h1>
-                </div>
-                <nav class="view-buttons">
-                    <button id="globalView"><i class="fas fa-globe-americas"></i> Global View</button>
-                    <button id="arcticView"><i class="fas fa-snowflake"></i> Arctic View</button>
-                    <button id="atlanticView"><i class="fas fa-water"></i> Atlantic Ocean</button>
-                    <button id="pacificView"><i class="fas fa-water"></i> Pacific Ocean</button>
-                </nav>
-                <button class="home-button" id="homeButton"><i class="fas fa-home"></i></button>
-            </header>
-            <main id="map" class="map-container">
-            </main>
-            <footer class="site-footer">
-                <p>Explore different regions of our planet with dynamic map projections. Powered by OpenLayers.</p>
-            </footer>
         </div>
-    </div>
-
+    </div><!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
     <script src="script.js"></script>
 </body>
