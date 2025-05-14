@@ -3,11 +3,46 @@ body {
     overflow: hidden;
 }
 
+/* Estilos para el sidebar plegable */
+.sidebar {
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 250px;
+}
+
+.sidebar.collapsed {
+    margin-left: -250px;
+}
+
+.toggle-sidebar {
+    color: #0865a3;
+    border: 1px solid rgba(8, 101, 163, 0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    transition: all 0.3s ease;
+}
+
+.toggle-sidebar:hover {
+    background-color: rgba(8, 101, 163, 0.1);
+}
+
+.toggle-sidebar i {
+    transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed .toggle-sidebar i {
+    transform: rotate(180deg);
+}
+
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
 /* Estilos de la barra lateral */
 .sidebar {
     height: 100vh;
     overflow-y: auto;
-    border-right: 1px solid rgba(0,0,0,.125);
+    border-right: 1px solid rgba(8, 101, 163, 0.2);
 }
 
 .sidebar::-webkit-scrollbar {
@@ -19,17 +54,36 @@ body {
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: #dee2e6;
+    background: rgba(8, 101, 163, 0.3);
     border-radius: 3px;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-    background: #adb5bd;
+    background: rgba(8, 101, 163, 0.5);
+}
+
+/* Estilos para la cabecera y pie de página */
+.header, header, .bg-dark {
+    background-color: #0865a3 !important;
+}
+
+.footer, footer, .footer.bg-dark {
+    background-color: #0865a3 !important;
 }
 
 /* Personalizaciones del accordion */
 .accordion-button:not(.collapsed) {
-    background-color: rgba(13, 110, 253, 0.1);
+    background-color: rgba(8, 101, 163, 0.1);
+    color: #0865a3;
+}
+
+.accordion-button:focus {
+    border-color: #0865a3;
+    box-shadow: 0 0 0 0.25rem rgba(8, 101, 163, 0.25);
+}
+
+.accordion-button.collapsed {
+    color: #333;
 }
 
 .accordion-body {
@@ -43,8 +97,8 @@ body {
 }
 
 .form-check-input:checked {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: #0865a3;
+    border-color: #0865a3;
 }
 
 /* Estilos para el contenedor del mapa */
@@ -53,9 +107,107 @@ body {
     background-color: #f8f9fa;
 }
 
+/* Estilos mejorados para botones */
+.btn-group {
+    gap: 4px;
+    padding: 4px;
+}
+
+.btn-group .btn.btn-outline-light {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-group .btn.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-group .btn.btn-outline-light:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-group .btn.btn-outline-light:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    outline: none;
+}
+
+.btn-group .btn.btn-outline-light i {
+    margin-right: 6px;
+    font-size: 0.9em;
+    transition: transform 0.2s ease;
+}
+
+.btn-group .btn.btn-outline-light:hover i {
+    transform: scale(1.1);
+}
+
+/* Estilo especial para el botón home */
+.btn-group .btn#homeButton {
+    padding: 0.5rem;
+    aspect-ratio: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-group .btn#homeButton i {
+    margin: 0;
+}
+
+/* Ajustes responsive para botones */
+@media (max-width: 768px) {
+    .btn-group {
+        gap: 6px;
+        padding: 6px;
+        justify-content: center;
+    }
+    
+    .btn-group .btn.btn-outline-light {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Estilo para los botones principales */
+.btn-group .btn.btn-outline-light {
+    border-color: #fff;
+    color: #fff;
+}
+
+.btn-group .btn.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+}
+
+.btn-group .btn.btn-outline-light:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
 /* Estilo para los botones de vista */
 .btn-group .btn {
     font-size: 0.9rem;
+}
+
+header {
+    background-color: #0865a3 !important;
+}
+
+footer {
+    background-color: #0865a3 !important;
 }
 
 .btn-outline-light:hover {
@@ -66,10 +218,18 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.2);
 }
 
-/* Estilo para el ícono del título */
+/* Estilo para el título y los iconos en la cabecera */
+.h4, h1.h4 {
+    color: #fff !important;
+}
+
 .title-container .fas {
     font-size: 1.5rem;
     color: #fff;
+}
+
+.fas {
+    color: #fff !important;
 }
 
 /* Estilo para el pie de página */
@@ -94,15 +254,39 @@ footer {
     .btn-group .btn {
         margin: 2px;
     }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 1030;
+        margin-left: 0;
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+        transform: translateY(calc(100% - 50px));
+        margin-left: 0;
+    }
+
+    .toggle-sidebar i {
+        transform: rotate(-90deg);
+    }
+
+    .sidebar.collapsed .toggle-sidebar i {
+        transform: rotate(90deg);
+    }
 }
 
 /* Optimizaciones de OpenLayers */
 .ol-control button {
-    background-color: rgba(0,0,0,0.6) !important;
+    background-color: rgba(8, 101, 163, 0.8) !important;
 }
 
 .ol-control button:hover {
-    background-color: rgba(0,0,0,0.8) !important;
+    background-color: #0865a3 !important;
 }
 
 .ol-zoom {

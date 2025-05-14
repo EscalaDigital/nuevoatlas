@@ -10,14 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let topoLayer;
     let oceanLayer;
     let terrainLayer;
-    const activeWmsLayers = {};
-
-    // Definir los colores de fondo para cada capa base
+    const activeWmsLayers = {};    // Definir los colores de fondo para cada capa base
     const BASE_LAYER_COLORS = {
         'esri': '#004255',  // Esri Satellite with Labels
-        'osm': '#AAD3DF',   // OpenStreetMap
-        'ocean': '#97BCE8', // Esri Ocean
-        'topo': '#97D2E3'   // OpenTopoMap
+        'osm': '#0865a3',   // OpenStreetMap
+        'ocean': '#0865a3', // Esri Ocean
+        'topo': '#0865a3'   // OpenTopoMap
     };
 
     // Función para actualizar el color de fondo del mapa
