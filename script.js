@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const WMS_URL = 'https://kerdes.cica.es/gs-deep_rest/geoserver/wms?';
     const INITIAL_PROJECTION_CODE = 'EPSG:3857'; // Código de la proyección inicial
     const INITIAL_CENTER_LONLAT = [0, 0]; // Centro inicial en LonLat [lon, lat]
-    const INITIAL_ZOOM = 2;    let map;
+    const INITIAL_ZOOM = 2;    
+    let map;
     let osmLayer;
     let esriLayer;
     let esriLabelsLayer;
@@ -10,6 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let oceanLayer;
     let terrainLayer;
     const activeWmsLayers = {};
+
+    // Definir los colores de fondo para cada capa base
+    const BASE_LAYER_COLORS = {
+        'esri': '#004255',  // Esri Satellite with Labels
+        'osm': '#AAD3DF',   // OpenStreetMap
+        'ocean': '#97BCE8', // Esri Ocean
+        'topo': '#97D2E3'   // OpenTopoMap
+    };
+
+    // Función para actualizar el color de fondo del mapa
+    function updateMapBackground(layerType) {
+        const mapElement = document.getElementById('map');
+        mapElement.style.backgroundColor = BASE_LAYER_COLORS[layerType] || '#ffffff';
+    }
 
     // Definiciones de Proyecciones con Proj4js
     // Asegúrate de que Proj4js está cargado antes que este script
@@ -21,9 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error("Proj4js no está cargado. Las proyecciones personalizadas no funcionarán.");
         return;
-    }
-
-    // Función para actualizar las capas WMS cuando cambia la proyección
+    }    // Función para actualizar las capas WMS cuando cambia la proyección
     function updateWmsLayers(newProjection) {
         Object.entries(activeWmsLayers).forEach(([layerName, layer]) => {
             // Obtener la visibilidad actual de la capa
@@ -32,17 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Remover la capa antigua
             map.removeLayer(layer);
             
-            // Crear una nueva fuente WMS con la proyección actualizada
+            // Usar EPSG:3857 para el WMS y dejar que OpenLayers haga la reproyección
             const wmsSource = new ol.source.ImageWMS({
                 url: WMS_URL,
                 params: {
                     'LAYERS': layerName,
                     'VERSION': '1.1.1',
-                    'SRS': newProjection.getCode() // Usar el código de la nueva proyección
+                    'SRS': 'EPSG:3857' // Siempre usar Web Mercator para el WMS
                 },
                 serverType: 'geoserver',
                 crossOrigin: 'anonymous',
-                projection: newProjection
+                projection: 'EPSG:3857' // Proyección de origen
             });
 
             // Crear una nueva capa con la fuente actualizada
@@ -56,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
             map.addLayer(newWmsLayer);
             activeWmsLayers[layerName] = newWmsLayer;
         });
-    }    function initMap() {
+    }    
+    function initMap() {
         osmLayer = new ol.layer.Tile({
             source: new ol.source.OSM(),
             visible: document.querySelector('input[data-layer-type="osm"]').checked,
@@ -102,7 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }),
             visible: document.querySelector('input[data-layer-type="ocean"]').checked,
             zIndex: 0
-        });        const mapControls = [
+        });        
+        const mapControls = [
             new ol.control.Zoom(),
             new ol.control.Rotate(),
             new ol.control.Attribution({
@@ -111,7 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
 
         const initialProjection = ol.proj.get(INITIAL_PROJECTION_CODE);
-        const initialCenterProjected = ol.proj.fromLonLat(INITIAL_CENTER_LONLAT, initialProjection);        map = new ol.Map({
+        const initialCenterProjected = ol.proj.fromLonLat(INITIAL_CENTER_LONLAT, initialProjection);        
+        map = new ol.Map({
             target: 'map',
             layers: [esriLayer, osmLayer, oceanLayer, topoLayer],
             view: new ol.View({
@@ -122,10 +138,47 @@ document.addEventListener('DOMContentLoaded', () => {
             controls: mapControls
         });
 
+        // Establecer el color de fondo inicial (asumiendo que Esri es la capa por defecto)
+        updateMapBackground('esri');
+
         setupLayerControls();
         setupViewButtons();
         setupCategoryToggles();
-    }    function setupLayerControls() {
+
+        // Event listeners para los botones de capas base
+        document.getElementById('esri').addEventListener('click', () => {
+            esriLayer.setVisible(true);
+            osmLayer.setVisible(false);
+            oceanLayer.setVisible(false);
+            topoLayer.setVisible(false);
+            updateMapBackground('esri');
+        });
+
+        document.getElementById('osm').addEventListener('click', () => {
+            esriLayer.setVisible(false);
+            osmLayer.setVisible(true);
+            oceanLayer.setVisible(false);
+            topoLayer.setVisible(false);
+            updateMapBackground('osm');
+        });
+
+        document.getElementById('ocean').addEventListener('click', () => {
+            esriLayer.setVisible(false);
+            osmLayer.setVisible(false);
+            oceanLayer.setVisible(true);
+            topoLayer.setVisible(false);
+            updateMapBackground('ocean');
+        });
+
+        document.getElementById('topo').addEventListener('click', () => {
+            esriLayer.setVisible(false);
+            osmLayer.setVisible(false);
+            oceanLayer.setVisible(false);
+            topoLayer.setVisible(true);
+            updateMapBackground('topo');
+        });
+    }    
+    function setupLayerControls() {
         const checkboxes = document.querySelectorAll('.layer-checkbox');
         const baseLayers = ['osm', 'esri', 'topo', 'ocean'];
 
@@ -166,20 +219,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (layerType === 'ocean') {
                         oceanLayer.setVisible(true);
                     }
+
+                    // Actualizar el color de fondo del mapa
+                    updateMapBackground(layerType);
                 } else if (layerName) {
                     // Para capas WMS
                     if (event.target.checked) {
-                        if (!activeWmsLayers[layerName]) {
-                            const wmsSource = new ol.source.ImageWMS({
+                        if (!activeWmsLayers[layerName]) {                            const wmsSource = new ol.source.ImageWMS({
                                 url: WMS_URL,
                                 params: {
                                     'LAYERS': layerName,
                                     'VERSION': '1.1.1',
-                                    'SRS': currentProjection.getCode()
+                                    'SRS': 'EPSG:3857'
                                 },
                                 serverType: 'geoserver',
                                 crossOrigin: 'anonymous',
-                                projection: currentProjection
+                                projection: 'EPSG:3857'
                             });
                             const wmsLayer = new ol.layer.Image({
                                 source: wmsSource,
@@ -231,16 +286,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('arcticView').addEventListener('click', () => {
             // Centro LonLat [10, 90] para EPSG:3575 (proyección centrada en Lon 10, Lat 90)
             changeMapView('EPSG:3575', [10, 90], 2); // Zoom ajustado para mejor visualización del Ártico
-        });
-
-        document.getElementById('atlanticView').addEventListener('click', () => {
-            // Centro LonLat [-45, 15] para ATLANTIC_CUSTOM (proyección centrada en Lon -45, Lat 15)
-            changeMapView('ATLANTIC_CUSTOM', [-45, 15], 3);
+        });        document.getElementById('atlanticView').addEventListener('click', () => {
+            // Usar proyección LAEA centrada en el Atlántico
+            changeMapView('ATLANTIC_CUSTOM', [-45, 15], 4);
         });
 
         document.getElementById('pacificView').addEventListener('click', () => {
-            // Centro LonLat [-150, 0] para PACIFIC_CUSTOM (proyección centrada en Lon -150, Lat 0)
-            changeMapView('PACIFIC_CUSTOM', [-150, 0], 3);
+            // Usar proyección LAEA centrada en el Pacífico
+            changeMapView('PACIFIC_CUSTOM', [-150, 0], 4);
         });
     }
 
