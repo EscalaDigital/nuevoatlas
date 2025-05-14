@@ -1,8 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {    // Configuración del sidebar plegable
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('.main-content');
+    const toggleButton = document.getElementById('toggleSidebar');
+    
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+        
+        // Trigger a resize event para que el mapa se ajuste al nuevo tamaño
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 300); // Esperar a que termine la transición
+    });
+
+    // Cerrar sidebar en móviles al hacer click en el mapa
+    document.getElementById('map').addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.add('collapsed');
+        }
+    });
+
     const WMS_URL = 'https://kerdes.cica.es/gs-deep_rest/geoserver/wms?';
     const INITIAL_PROJECTION_CODE = 'EPSG:3857'; // Código de la proyección inicial
     const INITIAL_CENTER_LONLAT = [0, 0]; // Centro inicial en LonLat [lon, lat]
-    const INITIAL_ZOOM = 2;    
+    const INITIAL_ZOOM = 2;
     let map;
     let osmLayer;
     let esriLayer;
