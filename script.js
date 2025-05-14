@@ -2,10 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const WMS_URL = 'https://kerdes.cica.es/gs-deep_rest/geoserver/wms?';
     const INITIAL_PROJECTION_CODE = 'EPSG:3857'; // Código de la proyección inicial
     const INITIAL_CENTER_LONLAT = [0, 0]; // Centro inicial en LonLat [lon, lat]
-    const INITIAL_ZOOM = 2;
-
-    let map;
+    const INITIAL_ZOOM = 2;    let map;
     let osmLayer;
+    let esriLayer;
+    let esriLabelsLayer;
+    let topoLayer;
+    let oceanLayer;
     let terrainLayer;
     const activeWmsLayers = {};
 
@@ -54,25 +56,53 @@ document.addEventListener('DOMContentLoaded', () => {
             map.addLayer(newWmsLayer);
             activeWmsLayers[layerName] = newWmsLayer;
         });
-    }
-
-    function initMap() {
+    }    function initMap() {
         osmLayer = new ol.layer.Tile({
             source: new ol.source.OSM(),
-            visible: document.querySelector('input[data-layer-type="osm"]').checked, // Visibilidad según HTML
+            visible: document.querySelector('input[data-layer-type="osm"]').checked,
             zIndex: 0
         });
 
-        terrainLayer = new ol.layer.Tile({
-            source: new ol.source.OSM({ // Fuente de ejemplo para Terrain Map
+        // Esri World Imagery - satélite de alta resolución
+        esriLayer = new ol.layer.Group({
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.XYZ({
+                        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                        attributions: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+                    }),
+                    zIndex: 0
+                }),
+                new ol.layer.Tile({
+                    source: new ol.source.XYZ({
+                        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+                        attributions: 'Tiles &copy; Esri &mdash; Source: Esri, HERE, Garmin, © OpenStreetMap contributors, and the GIS user community'
+                    }),
+                    zIndex: 1
+                })
+            ],
+            visible: document.querySelector('input[data-layer-type="esri"]').checked
+        });
+
+        // OpenTopoMap - mapa topográfico detallado
+        topoLayer = new ol.layer.Tile({
+            source: new ol.source.XYZ({
                 url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png',
-                attributions: 'Map data: &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                attributions: 'Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)'
             }),
-            visible: document.querySelector('input[data-layer-type="terrain"]').checked, // Visibilidad según HTML
+            visible: document.querySelector('input[data-layer-type="topo"]').checked,
             zIndex: 0
         });
 
-        const mapControls = [
+        // Esri Ocean - mapa especializado en océanos
+        oceanLayer = new ol.layer.Tile({
+            source: new ol.source.XYZ({
+                url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
+                attributions: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+            }),
+            visible: document.querySelector('input[data-layer-type="ocean"]').checked,
+            zIndex: 0
+        });        const mapControls = [
             new ol.control.Zoom(),
             new ol.control.Rotate(),
             new ol.control.Attribution({
@@ -81,11 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
 
         const initialProjection = ol.proj.get(INITIAL_PROJECTION_CODE);
-        const initialCenterProjected = ol.proj.fromLonLat(INITIAL_CENTER_LONLAT, initialProjection);
-
-        map = new ol.Map({
+        const initialCenterProjected = ol.proj.fromLonLat(INITIAL_CENTER_LONLAT, initialProjection);        map = new ol.Map({
             target: 'map',
-            layers: [osmLayer, terrainLayer],
+            layers: [esriLayer, osmLayer, oceanLayer, topoLayer],
             view: new ol.View({
                 projection: initialProjection,
                 center: initialCenterProjected,
@@ -97,21 +125,49 @@ document.addEventListener('DOMContentLoaded', () => {
         setupLayerControls();
         setupViewButtons();
         setupCategoryToggles();
-    }
-
-    function setupLayerControls() {
+    }    function setupLayerControls() {
         const checkboxes = document.querySelectorAll('.layer-checkbox');
+        const baseLayers = ['osm', 'esri', 'topo', 'ocean'];
+
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', (event) => {
                 const layerName = event.target.dataset.layerName;
                 const layerType = event.target.dataset.layerType;
                 const currentProjection = map.getView().getProjection();
 
-                if (layerType === 'osm') {
-                    osmLayer.setVisible(event.target.checked);
-                } else if (layerType === 'terrain') {
-                    terrainLayer.setVisible(event.target.checked);
+                // Si es una capa base
+                if (baseLayers.includes(layerType)) {
+                    // Si se está desmarcando, no permitirlo
+                    if (!event.target.checked) {
+                        event.target.checked = true;
+                        return;
+                    }
+                    
+                    // Desmarcar todas las otras capas base
+                    checkboxes.forEach(otherCheckbox => {
+                        if (otherCheckbox !== event.target && baseLayers.includes(otherCheckbox.dataset.layerType)) {
+                            otherCheckbox.checked = false;
+                        }
+                    });
+
+                    // Ocultar todas las capas base
+                    osmLayer.setVisible(false);
+                    esriLayer.setVisible(false);
+                    topoLayer.setVisible(false);
+                    oceanLayer.setVisible(false);
+
+                    // Activar solo la capa seleccionada
+                    if (layerType === 'osm') {
+                        osmLayer.setVisible(true);
+                    } else if (layerType === 'esri') {
+                        esriLayer.setVisible(true);
+                    } else if (layerType === 'topo') {
+                        topoLayer.setVisible(true);
+                    } else if (layerType === 'ocean') {
+                        oceanLayer.setVisible(true);
+                    }
                 } else if (layerName) {
+                    // Para capas WMS
                     if (event.target.checked) {
                         if (!activeWmsLayers[layerName]) {
                             const wmsSource = new ol.source.ImageWMS({

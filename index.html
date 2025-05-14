@@ -14,16 +14,25 @@
         <aside class="sidebar">
             <h2>Map Layers</h2>
             <div class="layer-category">
-                <button class="category-toggle active">Base Layers</button>
-                <div class="layers-content open" style="display: block;">
+                <button class="category-toggle active">Base Layers</button>                <div class="layers-content open" style="display: block;">
                     <label>
-                        <span class="toggle-switch-label">Street Map (OSM)</span>
-                        <input type="checkbox" class="layer-checkbox" data-layer-type="osm" checked>
+                        <span class="toggle-switch-label">Esri Satellite with Labels</span>
+                        <input type="checkbox" class="layer-checkbox" data-layer-type="esri" checked>
                         <span class="slider"></span>
                     </label>
                     <label>
-                        <span class="toggle-switch-label">Terrain Map</span>
-                        <input type="checkbox" class="layer-checkbox" data-layer-type="terrain">
+                        <span class="toggle-switch-label">OpenStreetMap</span>
+                        <input type="checkbox" class="layer-checkbox" data-layer-type="osm">
+                        <span class="slider"></span>
+                    </label>
+                    <label>
+                        <span class="toggle-switch-label">Esri Ocean</span>
+                        <input type="checkbox" class="layer-checkbox" data-layer-type="ocean">
+                        <span class="slider"></span>
+                    </label>
+                    <label>
+                        <span class="toggle-switch-label">OpenTopoMap</span>
+                        <input type="checkbox" class="layer-checkbox" data-layer-type="topo">
                         <span class="slider"></span>
                     </label>
                 </div>
