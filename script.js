@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
     const activeWmsLayers = {};    // Definir los colores de fondo para cada capa base
     const BASE_LAYER_COLORS = {
         'esri': '#004255',  // Esri Satellite with Labels
-        'osm': '#0865a3',   // OpenStreetMap
-        'ocean': '#0865a3', // Esri Ocean
-        'topo': '#0865a3'   // OpenTopoMap
+        'osm': '#AAD3DF',   // OpenStreetMap
+        'ocean': '#97BCE8', // Esri Ocean
+        'topo': '#97D2E3'   // OpenTopoMap
     };
 
     // Función para actualizar el color de fondo del mapa
@@ -197,6 +197,61 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
             updateMapBackground('topo');
         });
     }    
+    // Función para mostrar/ocultar la leyenda
+    function toggleLegend(show = true) {
+        const legend = document.getElementById('legend');
+        if (show) {
+            legend.classList.add('visible');
+        } else {
+            legend.classList.remove('visible');
+        }
+    }
+
+    // Función para obtener la leyenda de una capa WMS
+    function getLegendForLayer(layerName) {
+        return `${WMS_URL}REQUEST=GetLegendGraphic&VERSION=1.1.1&FORMAT=image/png&LAYER=${layerName}`;
+    }
+
+    // Función para actualizar la leyenda
+    function updateLegend() {
+        const legendContent = document.querySelector('.legend-content');
+        legendContent.innerHTML = '';
+        let hasVisibleLayers = false;
+
+        // Revisar todas las capas WMS activas
+        Object.entries(activeWmsLayers).forEach(([layerName, layer]) => {
+            if (layer.getVisible()) {
+                hasVisibleLayers = true;
+                const layerTitle = document.querySelector(`[data-layer-name="${layerName}"]`).dataset.layerTitle;
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                
+                // Crear imagen de la leyenda
+                const img = document.createElement('img');
+                img.src = getLegendForLayer(layerName);
+                img.alt = `Leyenda para ${layerTitle}`;
+                img.style.maxWidth = '100%';
+                
+                // Añadir título de la capa
+                const title = document.createElement('div');
+                title.className = 'legend-title';
+                title.textContent = layerTitle;
+                
+                legendItem.appendChild(title);
+                legendItem.appendChild(img);
+                legendContent.appendChild(legendItem);
+            }
+        });
+
+        // Mostrar u ocultar la leyenda según si hay capas visibles
+        toggleLegend(hasVisibleLayers);
+    }
+
+    // Configurar el botón de cerrar leyenda
+    document.querySelector('.legend-header .btn-close').addEventListener('click', () => {
+        toggleLegend(false);
+    });
+
     function setupLayerControls() {
         const checkboxes = document.querySelectorAll('.layer-checkbox');
         const baseLayers = ['osm', 'esri', 'topo', 'ocean'];
@@ -269,6 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
                         activeWmsLayers[layerName].setVisible(false);
                     }
                 }
+
+                // Actualizar la leyenda después de cambiar la visibilidad de la capa
+                updateLegend();
             });
         });
     }
