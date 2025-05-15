@@ -2,10 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.querySelector('.main-content');
     const toggleButton = document.getElementById('toggleSidebar');
+    let isFixed = true;
     
     toggleButton.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
         mainContent.classList.toggle('expanded');
+        
+        // Alternar entre posición fixed y absolute
+        isFixed = !isFixed;
+        if (isFixed) {
+            toggleButton.classList.remove('position-absolute');
+            toggleButton.style.position = 'fixed';
+            toggleButton.style.left = '300px';
+        } else {
+            toggleButton.classList.add('position-absolute');
+            toggleButton.style.position = 'absolute';
+            toggleButton.style.left = '0';
+        }
         
         // Trigger a resize event para que el mapa se ajuste al nuevo tamaño
         setTimeout(() => {

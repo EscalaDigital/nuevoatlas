@@ -42,8 +42,13 @@ body {
     cursor: pointer;
     z-index: 1001;
     padding: 0;
-    transition: left 0.3s ease;
+    transition: left 0.3s ease, position 0.3s ease;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.toggle-sidebar.position-absolute {
+    position: absolute;
+    left: 0;
 }
 
 .toggle-sidebar:hover {
