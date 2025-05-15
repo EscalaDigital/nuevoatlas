@@ -109,9 +109,7 @@ body {
     background-color: #0A66A4 !important;
 }
 
-.footer, footer, .footer.bg-dark {
-    background-color: #0A66A4 !important;
-}
+
 
 /* Personalizaciones del accordion */
 .accordion-button:not(.collapsed) {
@@ -248,9 +246,6 @@ header {
     background-color: #0A66A4 !important;
 }
 
-footer {
-    background-color: #0A66A4 !important;
-}
 
 .btn-outline-light:hover {
     background-color: rgba(255, 255, 255, 0.2);
