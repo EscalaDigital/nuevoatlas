@@ -197,15 +197,35 @@ body {
 
 /* Estilo especial para el botón home */
 .btn-group .btn#homeButton {
-    padding: 0.5rem;
+    padding: 0.7rem;
     aspect-ratio: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--primary-color);
+    border-width: 2px;
+    border-color: white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
 .btn-group .btn#homeButton i {
     margin: 0;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.btn-group .btn#homeButton:hover {
+    background-color: #085a91;
+    border-color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-group .btn#homeButton:active {
+    transform: scale(0.95);
+    background-color: #064d7a;
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
 /* Ajustes responsive para botones */

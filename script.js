@@ -140,14 +140,26 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
             zIndex: 0
         });
 
-        // Esri Ocean - mapa especializado en océanos
-        oceanLayer = new ol.layer.Tile({
-            source: new ol.source.XYZ({
-                url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
-                attributions: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
-            }),
-            visible: document.querySelector('input[data-layer-type="ocean"]').checked,
-            zIndex: 0
+        // Esri Ocean - mapa especializado en océanos con etiquetas
+        oceanLayer = new ol.layer.Group({
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.XYZ({
+                        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
+                        attributions: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+                    }),
+                    visible: document.querySelector('input[data-layer-type="ocean"]').checked,
+                    zIndex: 0
+                }),
+                new ol.layer.Tile({
+                    source: new ol.source.XYZ({
+                        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}',
+                        attributions: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+                    }),
+                    visible: document.querySelector('input[data-layer-type="ocean"]').checked,
+                    zIndex: 1
+                })
+            ]
         });        
         const mapControls = [
             new ol.control.Zoom(),

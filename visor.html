@@ -30,9 +30,8 @@
                             Base Layers
                         </button>
                     </h2>
-                    <div id="baseLayers" class="accordion-collapse collapse show" data-bs-parent="#layersAccordion">                        <div class="accordion-body p-2">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="esriLayer" data-layer-type="esri" checked>
+                    <div id="baseLayers" class="accordion-collapse collapse show" data-bs-parent="#layersAccordion">                        <div class="accordion-body p-2">                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="esriLayer" data-layer-type="esri">
                                 <label class="form-check-label" for="esriLayer">Esri Satellite with Labels</label>
                             </div>
                             <div class="form-check form-switch">
@@ -40,7 +39,7 @@
                                 <label class="form-check-label" for="osmLayer">OpenStreetMap</label>
                             </div>
                             <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="oceanLayer" data-layer-type="ocean">
+                                <input type="checkbox" class="form-check-input layer-checkbox" id="oceanLayer" data-layer-type="ocean" checked>
                                 <label class="form-check-label" for="oceanLayer">Esri Ocean</label>
                             </div>
                             <div class="form-check form-switch">
@@ -461,12 +460,13 @@
                             <i class="fas fa-globe fs-4 me-2"></i>
                             <h1 class="h4 mb-0">DEEP-REST</h1>
                         </div>                        <div class="btn-group">
+                            <button class="btn btn-lg me-3" id="homeButton" onclick="window.location.href='index.html'" title="Return to homepage">
+                                <i class="fas fa-home"></i>
+                            </button>
                             <button id="globalView" class="btn btn-deep-rest btn-sm"><i class="fas fa-globe-americas me-1"></i> Global View</button>
                             <button id="arcticView" class="btn btn-deep-rest btn-sm"><i class="fas fa-snowflake me-1"></i> Arctic View</button>
                             <button id="atlanticView" class="btn btn-deep-rest btn-sm"><i class="fas fa-water me-1"></i> Atlantic Ocean</button>
                             <button id="pacificView" class="btn btn-deep-rest btn-sm"><i class="fas fa-water me-1"></i> Pacific Ocean</button>
-                            <button class="btn btn-deep-rest btn-sm" id="homeButton" onclick="window.location.href='index.html'"><i class="fas fa-home"></i></button>
-
                         </div>
                     </div>
                 </header>
