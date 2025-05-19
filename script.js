@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
     let terrainLayer;
     const activeWmsLayers = {};    // Definir los colores de fondo para cada capa base
     const BASE_LAYER_COLORS = {
-        'esri': '#004255',  // Esri Satellite with Labels
+         'ocean': '#97BCE8',
+         'esri': '#004255',  // Esri Satellite with Labels
         'osm': '#AAD3DF',   // OpenStreetMap
-        'ocean': '#97BCE8', // Esri Ocean
         'topo': '#97D2E3'   // OpenTopoMap
     };
 
@@ -102,10 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
             activeWmsLayers[layerName] = newWmsLayer;
         });
     }    
-    function initMap() {
-        osmLayer = new ol.layer.Tile({
+    function initMap() {        osmLayer = new ol.layer.Tile({
             source: new ol.source.OSM(),
-            visible: document.querySelector('input[data-layer-type="osm"]').checked,
+            visible: false,
             zIndex: 0
         });
 
@@ -127,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
                     zIndex: 1
                 })
             ],
-            visible: document.querySelector('input[data-layer-type="esri"]').checked
+            visible: false
         });
 
         // OpenTopoMap - mapa topográfico detallado
@@ -136,19 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
                 url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png',
                 attributions: 'Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)'
             }),
-            visible: document.querySelector('input[data-layer-type="topo"]').checked,
+            visible: false,
             zIndex: 0
         });
 
         // Esri Ocean - mapa especializado en océanos con etiquetas
         oceanLayer = new ol.layer.Group({
-            layers: [
-                new ol.layer.Tile({
+            layers: [                new ol.layer.Tile({
                     source: new ol.source.XYZ({
                         url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
                         attributions: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
                     }),
-                    visible: document.querySelector('input[data-layer-type="ocean"]').checked,
+                    visible: true,
                     zIndex: 0
                 }),
                 new ol.layer.Tile({
@@ -170,8 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
         ];
 
         const initialProjection = ol.proj.get(INITIAL_PROJECTION_CODE);
-        const initialCenterProjected = ol.proj.fromLonLat(INITIAL_CENTER_LONLAT, initialProjection);        
-        map = new ol.Map({
+        const initialCenterProjected = ol.proj.fromLonLat(INITIAL_CENTER_LONLAT, initialProjection);          map = new ol.Map({
             target: 'map',
             layers: [esriLayer, osmLayer, oceanLayer, topoLayer],
             view: new ol.View({
@@ -182,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
             controls: mapControls
         });
 
-        // Establecer el color de fondo inicial (asumiendo que Esri es la capa por defecto)
-        updateMapBackground('esri');
+        // Establecer el color de fondo inicial a ocean
+        updateMapBackground('ocean');
 
         setupLayerControls();
         setupViewButtons();

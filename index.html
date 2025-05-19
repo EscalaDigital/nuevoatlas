@@ -10,14 +10,21 @@
             --primary-color: #0A66A4;
         }
 
-        .hero-section {            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
-                        url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+        .hero-section {
+            background: url('./fondo.png') no-repeat center center fixed;
             background-size: cover;
             background-position: center;
             min-height: 100vh;
             display: flex;
             align-items: center;
             color: white;
+        }
+
+        .title-container {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            margin: 0 auto;
+            max-width: 800px;
         }
 
         .feature-card {
@@ -95,20 +102,27 @@
             60% {
                 transform: translateX(-50%) translateY(-15px);
             }
+        }        .title-container {
+            background-color: rgba(33, 37, 41, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
         }
     </style>
 </head>
 <body>
     <!-- Hero Section -->    <section class="hero-section">
-        <div class="container text-center">            <h1 class="display-2 mb-4 fw-bold">GEOPOLITICAL ATLAS</h1>
-            <p class="lead mb-5">Conservation and Restoration of Deep-sea Ecosystems in the Context of Deep-sea Mining  (DEEP-REST)</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="visor.html" class="btn btn-primary btn-custom">
-                    <i class="fas fa-map-marked-alt me-2"></i>Access Viewer
-                </a>
-                <a href="#" class="btn btn-outline-light btn-custom">
-                    <i class="fas fa-book-atlas me-2"></i>View Atlas
-                </a>
+        <div class="container text-center">
+            <div class="title-container p-4 rounded">
+                <h1 class="display-2 mb-4 fw-bold">GEOPOLITICAL ATLAS</h1>
+                <p class="lead mb-5">Conservation and Restoration of Deep-sea Ecosystems in the Context of Deep-sea Mining  (DEEP-REST)</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="https://kerdes.cica.es/deep_rest/visor.html" class="btn btn-primary btn-custom">
+                        <i class="fas fa-map-marked-alt me-2"></i>Access Viewer
+                    </a>
+                    <a href="https://kerdes.cica.es/deep_rest/atlas.html" class="btn btn-outline-light btn-custom">
+                        <i class="fas fa-book-atlas me-2"></i>View Atlas
+                    </a>
+                </div>
             </div>
             <a href="#partners" class="scroll-down-btn">
                 <i class="fas fa-chevron-down"></i>
@@ -119,27 +133,27 @@
             <h2 class="text-center mb-5">Our Partners</h2>            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center align-items-center">
                 <div class="col text-center">
                     <div class="p-4 bg-white rounded shadow-sm">
-                        <img src="BiodiversaLogo_FINAL_RGB.png" alt="Biodiversa+" class="img-fluid" style="max-height: 80px;">
+                        <img src="./BiodiversaLogo_FINAL_RGB.png" alt="Biodiversa+" class="img-fluid" style="max-height: 80px;">
                     </div>
                 </div>
                 <div class="col text-center">
                     <div class="p-4 bg-white rounded shadow-sm">
-                        <img src="IFREMER-logo.jpg" alt="IFREMER" class="img-fluid" style="max-height: 80px;">
+                        <img src="./IFREMER-logo.jpg" alt="IFREMER" class="img-fluid" style="max-height: 80px;">
                     </div>
                 </div>
                 <div class="col text-center">
                     <div class="p-4 bg-white rounded shadow-sm">
-                        <img src="Logo-Deepres2t.jpg" alt="DEEP-REST" class="img-fluid" style="max-height: 80px;">
+                        <img src="./Logo-Deepres2t.jpg" alt="DEEP-REST" class="img-fluid" style="max-height: 80px;">
                     </div>
                 </div>
                 <div class="col text-center">
                     <div class="p-4 bg-white rounded shadow-sm">
-                        <img src="miciu-aei.png" alt="Ministerio de Ciencia, Innovación y Universidades - AEI" class="img-fluid" style="max-height: 80px;">
+                        <img src="./miciu-aei.png" alt="Ministerio de Ciencia, Innovación y Universidades - AEI" class="img-fluid" style="max-height: 80px;">
                     </div>
                 </div>
                 <div class="col text-center">
                     <div class="p-4 bg-white rounded shadow-sm">
-                        <img src="US-marca-monocromo.png" alt="Universidad de Sevilla" class="img-fluid" style="max-height: 80px;">
+                        <img src="./US-marca-monocromo.png" alt="Universidad de Sevilla" class="img-fluid" style="max-height: 80px;">
                     </div>
                 </div>
             </div>
@@ -150,9 +164,8 @@
     <section class="about-section section-padding">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6">                    <h2 class="mb-4">About the Project</h2>                    <p class="lead mb-4 text-justify">DEEP-REST is a research project funded through the 2020-2021 Biodiversa and Water JPI joint call, under the BiodivRestore ERA-NET Cofund.</p>
-                    <p class="text-justify">Our project focuses on the geopolitical and environmental aspects of deep-sea ecosystems, particularly in the context of seabed mining. Through advanced visualization tools and comprehensive data analysis, we address critical issues in marine conservation, international maritime law, and sustainable resource management.</p>                    
-                    <p class="mt-3 text-justify">Led by the Department of Human Geography at the University of Seville, this initiative combines geographic information systems, political analysis, and environmental research to support informed decision-making in ocean governance.</p>
+                <div class="col-lg-12">                    <h2 class="mb-4">About the Project</h2>                    <p class="lead mb-4 text-justify">DEEP-REST is a research project funded through the 2020-2021 Biodiversa and Water JPI joint call, under the BiodivRestore ERA-NET Cofund.</p>
+                    <p class="text-justify">The purpose of the 'Geopolitical atlas' is to compile information about the territorial dimension of the political-jurisdictional, administrative, and socio-economic aspects of the study sites of the Deep-Rest project  to support the development of geopolitical scenarios. Maps, statistical data and other complementary information are structured in the conventional atlas format and as a map viewer</p>                    
                     <div class="mt-4">
                         <h3 class="h5 mb-3">Research Team</h3>
                         <ul class="list-unstyled">
@@ -162,23 +175,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="row g-3"><div class="col-6">
-                            <div class="p-3 bg-white rounded shadow-sm text-center">
-                                <i class="fas fa-map text-primary mb-2" style="font-size: 2rem;"></i>
-                                <h4 class="h5">Interactive Viewer</h4>
-                                <p class="small mb-0">Explore marine jurisdictions and geopolitical data</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="p-3 bg-white rounded shadow-sm text-center">
-                                <i class="fas fa-book text-primary mb-2" style="font-size: 2rem;"></i>
-                                <h4 class="h5">Geopolitical Atlas</h4>
-                                <p class="small mb-0">Comprehensive analysis of deep-sea ecosystems and maritime boundaries</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>    <!-- Footer -->    <footer style="background-color: #212529;" class="text-white py-4">
