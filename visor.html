@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Shepherd.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.1.1/dist/css/shepherd.css"/>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Proj4js -->
@@ -424,7 +426,7 @@
                             </div>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input layer-checkbox" id="geneEdiJuris" data-layer-name="Deep_Rest:gene_edi_juris" data-layer-title="Editing capacity. Jurisdiction">
-                                <label class="form-check-label" for="geneEdiJuris">Editing capacity. Jurisdiction</label>
+                                <label class="form-check-label" for="geneEdiJuris">Editing capacity. Jurisdicción</label>
                             </div>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input layer-checkbox" id="submarineCable" data-layer-name="Deep_Rest:submarine_cable" data-layer-title="Submarine Cable">
@@ -454,6 +456,129 @@
                     </div>
                 </div>            </div>
         </aside>
+        <!-- Shepherd.js -->
+        <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.1.1/dist/js/shepherd.min.js"></script>
+        <script>
+            // Check if this is the first visit
+            if (!localStorage.getItem('tourCompleted')) {
+                // Initialize Shepherd
+                const tour = new Shepherd.Tour({
+                    defaultStepOptions: {
+                        cancelIcon: {
+                            enabled: true
+                        },
+                        classes: 'shepherd-theme-arrows',
+                        scrollTo: { behavior: 'smooth', block: 'center' }
+                    }
+                });
+
+                // Add steps to the tour
+                tour.addStep({
+                    id: 'welcome',
+                    text: 'Welcome to DEEP-REST Atlas! Let us show you around.',
+                    attachTo: {
+                        element: '.container-fluid',
+                        on: 'bottom'
+                    },
+                    buttons: [
+                        {
+                            text: 'Skip',
+                            action: tour.complete
+                        },
+                        {
+                            text: 'Next',
+                            action: tour.next
+                        }
+                    ]
+                });
+
+                tour.addStep({
+                    id: 'layers-panel',
+                    text: 'This panel contains all available map layers organized by categories.',
+                    attachTo: {
+                        element: '#sidebar',
+                        on: 'right'
+                    },
+                    buttons: [
+                        {
+                            text: 'Back',
+                            action: tour.back
+                        },
+                        {
+                            text: 'Next',
+                            action: tour.next
+                        }
+                    ]
+                });
+
+                tour.addStep({
+                    id: 'base-layers',
+                    text: 'Here you can choose different base maps like Satellite imagery, OpenStreetMap, or Ocean base maps.',
+                    attachTo: {
+                        element: '#baseLayers',
+                        on: 'right'
+                    },
+                    buttons: [
+                        {
+                            text: 'Back',
+                            action: tour.back
+                        },
+                        {
+                            text: 'Next',
+                            action: tour.next
+                        }
+                    ]
+                });
+
+                tour.addStep({
+                    id: 'seabed-layers',
+                    text: 'Explore study sites and seabed mining related layers in this section.',
+                    attachTo: {
+                        element: '#seabedLayers',
+                        on: 'right'
+                    },
+                    buttons: [
+                        {
+                            text: 'Back',
+                            action: tour.back
+                        },
+                        {
+                            text: 'Next',
+                            action: tour.next
+                        }
+                    ]
+                });
+
+                
+
+                tour.addStep({
+                    id: 'final',
+                    text: 'You can toggle layers on/off using the checkboxes. Enjoy exploring the DEEP-REST Atlas!',
+                    attachTo: {
+                        element: '.form-check:first-of-type',
+                        on: 'right'
+                    },
+                    buttons: [
+                        {
+                            text: 'Back',
+                            action: tour.back
+                        },
+                        {
+                            text: 'Done',
+                            action: tour.complete
+                        }
+                    ]
+                });
+
+                // Start the tour
+                tour.start();
+
+                // Mark the tour as completed
+                tour.on('complete', () => {
+                    localStorage.setItem('tourCompleted', 'true');
+                });
+            }
+        </script>
         <div class="main-content d-flex flex-column h-100">                <header class="text-white py-2 px-3" style="background: linear-gradient(to right, #0865a3, white);">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
