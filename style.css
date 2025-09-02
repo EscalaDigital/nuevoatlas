@@ -141,6 +141,14 @@ body {
     border-color: #0A66A4;
 }
 
+/* Sub-niveles de checkboxes para agrupar visualmente (ej: bajo Sponsoring States) */
+.form-check.sub-layer {
+    padding-left: 3rem; /* un poco más a la derecha */
+    position: relative;
+}
+
+/* (Eliminada la línea guía para no mostrar guion delante del checkbox) */
+
 /* Estilos para el contenedor del mapa */
 #map {
     height: 100%;
