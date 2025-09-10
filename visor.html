@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,16 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Shepherd.js CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.1.1/dist/css/shepherd.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.1.1/dist/css/shepherd.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Proj4js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.11.0/proj4.js"></script>
 </head>
-<body class="vh-100">    <div class="container-fluid h-100 p-0">        <div class="position-relative h-100">
+
+<body class="vh-100">
+    <div class="container-fluid h-100 p-0">
+        <div class="position-relative h-100">
             <button class="btn btn-sm toggle-sidebar" id="toggleSidebar">
                 <i class="fas fa-chevron-left"></i>
             </button>
@@ -26,578 +30,864 @@
                     <h2 class="h5 mb-0">Map Layers</h2>
                 </div>
                 <div class="accordion" id="layersAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#baseLayers" aria-expanded="true" aria-controls="baseLayers">
-                            Base Layers
-                        </button>
-                    </h2>
-                    <div id="baseLayers" class="accordion-collapse collapse show" data-bs-parent="#layersAccordion">                        <div class="accordion-body p-2">                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="esriLayer" data-layer-type="esri">
-                                <label class="form-check-label" for="esriLayer">Esri Satellite with Labels</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="osmLayer" data-layer-type="osm">
-                                <label class="form-check-label" for="osmLayer">OpenStreetMap</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="oceanLayer" data-layer-type="ocean" checked>
-                                <label class="form-check-label" for="oceanLayer">Esri Ocean</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="topoLayer" data-layer-type="topo">
-                                <label class="form-check-label" for="topoLayer">OpenTopoMap</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            <div class="layer-category">                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#seabedLayers" aria-expanded="false" aria-controls="seabedLayers">
-                            Study Sites and Seabed Mining
-                        </button>
-                    </h2>
-                    <div id="seabedLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
-                        <div class="accordion-body p-2">                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="studySites" data-layer-name="Deep_Rest:areas_estudio" data-layer-title="Study sites">                                <label class="form-check-label" for="studySites">Study sites</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="hydrothermal" data-layer-name="Deep_Rest:Hydrothermal Vents" data-layer-title="Hydrothermal vents">
-                                <label class="form-check-label" for="hydrothermal">Hydrothermal vents</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="tectonicPlate" data-layer-name="Deep_Rest:plate" data-layer-title="Tectonic plate">
-                                <label class="form-check-label" for="tectonicPlate">Tectonic plate</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="cobaltCrust" data-layer-name="Deep_Rest:cobalt" data-layer-title="Cobalt-rich crusts">
-                                <label class="form-check-label" for="cobaltCrust">Cobalt-rich crusts</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="polymetallic" data-layer-name="Deep_Rest:polymetallic" data-layer-title="Polymetallic nodules">
-                                <label class="form-check-label" for="polymetallic">Polymetallic nodules</label>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#baseLayers" aria-expanded="true" aria-controls="baseLayers">
+                                Base Layers
+                            </button>
+                        </h2>
+                        <div id="baseLayers" class="accordion-collapse collapse show" data-bs-parent="#layersAccordion">
+                            <div class="accordion-body p-2">
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="esriLayer"
+                                        data-layer-type="esri">
+                                    <label class="form-check-label" for="esriLayer">Esri Satellite with Labels</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="osmLayer"
+                                        data-layer-type="osm">
+                                    <label class="form-check-label" for="osmLayer">OpenStreetMap</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="oceanLayer"
+                                        data-layer-type="ocean" checked>
+                                    <label class="form-check-label" for="oceanLayer">Esri Ocean</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="topoLayer"
+                                        data-layer-type="topo">
+                                    <label class="form-check-label" for="topoLayer">OpenTopoMap</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            <div class="layer-category">                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#geopoliticsLayers" aria-expanded="false" aria-controls="geopoliticsLayers">
-                            Oceans and Geopolitics
-                        </button>
-                    </h2>
-                    <div id="geopoliticsLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
-                        <div class="accordion-body p-2">      
-                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="g8members" data-layer-name="deep:International_Straits" data-layer-title="International Straits">
-                                <label class="form-check-label" for="International_Straits">International Straits</label>
-                            </div>                      
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="g8members" data-layer-name="deep:G7_members" data-layer-title="G7 members">
-                                <label class="form-check-label" for="g8members">G7 members</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="g8juris" data-layer-name="deep:G7_jurisdictions" data-layer-title="G7 marine jurisdictions">
-                                <label class="form-check-label" for="g8juris">G7 marine jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="g20members" data-layer-name="Deep_Rest:G20" data-layer-title="G20 members">
-                                <label class="form-check-label" for="g20members">G20 members</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="g20juris" data-layer-name="Deep_Rest:G20_EEZ_ECS" data-layer-title="G20 marine jurisdictions">
-                                <label class="form-check-label" for="g20juris">G20 marine jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="g77members" data-layer-name="Deep_Rest:G77" data-layer-title="G77 members">
-                                <label class="form-check-label" for="g77members">G77 members</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="g77juris" data-layer-name="Deep_Rest:G77_EEZ_ECS" data-layer-title="G77 marine jurisdictions">
-                                <label class="form-check-label" for="g77juris">G77 marine jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="eujuris" data-layer-name="Deep_Rest:eu_juris" data-layer-title="EU jurisdiction">
-                                <label class="form-check-label" for="eujuris">EU jurisdiction</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="mercosur" data-layer-name="Deep_Rest:mercosur" data-layer-title="MERCOSUR">
-                                <label class="form-check-label" for="mercosur">MERCOSUR</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="mercosurjuris" data-layer-name="Deep_Rest:mercosur_juris" data-layer-title="MERCOSUR jurisdictions">
-                                <label class="form-check-label" for="mercosurjuris">MERCOSUR jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="arableague" data-layer-name="Deep_Rest:arab_league" data-layer-title="Arab League">
-                                <label class="form-check-label" for="arableague">Arab League</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="arabjuris" data-layer-name="Deep_Rest:arab_juris" data-layer-title="Arab League jurisdictions">
-                                <label class="form-check-label" for="arabjuris">Arab League jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="apec" data-layer-name="Deep_Rest:apec" data-layer-title="APEC">
-                                <label class="form-check-label" for="apec">APEC</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="apecjuris" data-layer-name="Deep_Rest:apec_juris" data-layer-title="APEC jurisdictions">
-                                <label class="form-check-label" for="apecjuris">APEC jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="africanstates" data-layer-name="Deep_Rest:coastal_african" data-layer-title="Coastal African States">
-                                <label class="form-check-label" for="africanstates">Coastal African States</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="africanjuris" data-layer-name="Deep_Rest:african_EEZ_ECS" data-layer-title="Coastal African States jurisdictions">
-                                <label class="form-check-label" for="africanjuris">Coastal African States jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="nato" data-layer-name="Deep_Rest:OTAN" data-layer-title="NATO">
-                                <label class="form-check-label" for="nato">NATO</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="natojuris" data-layer-name="Deep_Rest:OTAN_EEZ_ECS" data-layer-title="NATO members jurisdictions">
-                                <label class="form-check-label" for="natojuris">NATO members jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="aosis" data-layer-name="Deep_Rest:AOSIS" data-layer-title="AOSIS">
-                                <label class="form-check-label" for="aosis">AOSIS</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="aosisjuris" data-layer-name="Deep_Rest:AOSIS_EEZ_ECS" data-layer-title="AOSIS jurisdictions">
-                                <label class="form-check-label" for="aosisjuris">AOSIS jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="caricom" data-layer-name="Deep_Rest:CARICOM" data-layer-title="CARICOM">
-                                <label class="form-check-label" for="caricom">CARICOM</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="caricomjuris" data-layer-name="Deep_Rest:CARICOM_EEZ_ECS" data-layer-title="CARICOM jurisdictions">
-                                <label class="form-check-label" for="caricomjuris">CARICOM jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="sids" data-layer-name="Deep_Rest:SIDS" data-layer-title="SIDS">
-                                <label class="form-check-label" for="sids">SIDS</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="sidsjuris" data-layer-name="Deep_Rest:SIDS_EEZ_ECS" data-layer-title="SIDS jurisdictions">
-                                <label class="form-check-label" for="sidsjuris">SIDS jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="psids" data-layer-name="Deep_Rest:PSIDS" data-layer-title="PSIDS">
-                                <label class="form-check-label" for="psids">PSIDS</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="psidsjuris" data-layer-name="Deep_Rest:PSIDS_EEZ_ECS" data-layer-title="PSIDS jurisdictions">
-                                <label class="form-check-label" for="psidsjuris">PSIDS jurisdictions</label>
+                    <div class="layer-category"> </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#seabedLayers" aria-expanded="false" aria-controls="seabedLayers">
+                                Study Sites and Seabed Mining
+                            </button>
+                        </h2>
+                        <div id="seabedLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
+                            <div class="accordion-body p-2">
+
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="studySites"
+                                        data-layer-name="deep:study_sites" data-layer-title="Study sites"> <label
+                                        class="form-check-label" for="studySites">Study sites</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="hydrothermal"
+                                        data-layer-name="Deep_Rest:Hydrothermal Vents"
+                                        data-layer-title="Hydrothermal vents">
+                                    <label class="form-check-label" for="hydrothermal">Hydrothermal vents</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="tectonicPlate"
+                                        data-layer-name="Deep_Rest:plate" data-layer-title="Tectonic plate">
+                                    <label class="form-check-label" for="tectonicPlate">Tectonic plate</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="cobaltCrust"
+                                        data-layer-name="Deep_Rest:cobalt" data-layer-title="Cobalt-rich crusts">
+                                    <label class="form-check-label" for="cobaltCrust">Cobalt-rich crusts</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input layer-checkbox" id="polymetallic"
+                                        data-layer-name="Deep_Rest:polymetallic"
+                                        data-layer-title="Polymetallic nodules">
+                                    <label class="form-check-label" for="polymetallic">Polymetallic nodules</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            <div class="layer-category">                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jurisdictionsLayers" aria-expanded="false" aria-controls="jurisdictionsLayers">
-                            Jurisdictions and Maritime Boundaries
-                        </button>
-                    </h2>
-                    <div id="jurisdictionsLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
-                        <div class="accordion-body p-2">                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="territorialsea" data-layer-name="Deep_Rest:territorial" data-layer-title="Territorial sea">
-                                <label class="form-check-label" for="territorialsea">Territorial sea</label>
+                    <div class="layer-category">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#geopoliticsLayers" aria-expanded="false"
+                                    aria-controls="geopoliticsLayers">
+                                    Oceans and Geopolitics
+                                </button>
+                            </h2>
+                            <div id="geopoliticsLayers" class="accordion-collapse collapse"
+                                data-bs-parent="#layersAccordion">
+                                <div class="accordion-body p-2">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="g8members"
+                                            data-layer-name="deep:International_Straits"
+                                            data-layer-title="International Straits">
+                                        <label class="form-check-label" for="International_Straits">International
+                                            Straits</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="g8members"
+                                            data-layer-name="deep:G7_members" data-layer-title="G7 members">
+                                        <label class="form-check-label" for="g8members">G7 members</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="g8juris"
+                                            data-layer-name="deep:G7_jurisdictions"
+                                            data-layer-title="G7 marine jurisdictions">
+                                        <label class="form-check-label" for="g8juris">G7 marine jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="g20members"
+                                            data-layer-name="Deep_Rest:G20" data-layer-title="G20 members">
+                                        <label class="form-check-label" for="g20members">G20 members</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="g20juris"
+                                            data-layer-name="Deep_Rest:G20_EEZ_ECS"
+                                            data-layer-title="G20 marine jurisdictions">
+                                        <label class="form-check-label" for="g20juris">G20 marine jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="g77members"
+                                            data-layer-name="Deep_Rest:G77" data-layer-title="G77 members">
+                                        <label class="form-check-label" for="g77members">G77 members</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="g77juris"
+                                            data-layer-name="Deep_Rest:G77_EEZ_ECS"
+                                            data-layer-title="G77 marine jurisdictions">
+                                        <label class="form-check-label" for="g77juris">G77 marine jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="eujuris"
+                                            data-layer-name="Deep_Rest:eu_juris" data-layer-title="EU jurisdiction">
+                                        <label class="form-check-label" for="eujuris">EU jurisdiction</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="mercosur"
+                                            data-layer-name="Deep_Rest:mercosur" data-layer-title="MERCOSUR">
+                                        <label class="form-check-label" for="mercosur">MERCOSUR</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox"
+                                            id="mercosurjuris" data-layer-name="Deep_Rest:mercosur_juris"
+                                            data-layer-title="MERCOSUR jurisdictions">
+                                        <label class="form-check-label" for="mercosurjuris">MERCOSUR
+                                            jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="arableague"
+                                            data-layer-name="Deep_Rest:arab_league" data-layer-title="Arab League">
+                                        <label class="form-check-label" for="arableague">Arab League</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="arabjuris"
+                                            data-layer-name="Deep_Rest:arab_juris"
+                                            data-layer-title="Arab League jurisdictions">
+                                        <label class="form-check-label" for="arabjuris">Arab League
+                                            jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="apec"
+                                            data-layer-name="Deep_Rest:apec" data-layer-title="APEC">
+                                        <label class="form-check-label" for="apec">APEC</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="apecjuris"
+                                            data-layer-name="Deep_Rest:apec_juris"
+                                            data-layer-title="APEC jurisdictions">
+                                        <label class="form-check-label" for="apecjuris">APEC jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox"
+                                            id="africanstates" data-layer-name="Deep_Rest:coastal_african"
+                                            data-layer-title="Coastal African States">
+                                        <label class="form-check-label" for="africanstates">Coastal African
+                                            States</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="africanjuris"
+                                            data-layer-name="Deep_Rest:african_EEZ_ECS"
+                                            data-layer-title="Coastal African States jurisdictions">
+                                        <label class="form-check-label" for="africanjuris">Coastal African States
+                                            jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="nato"
+                                            data-layer-name="Deep_Rest:OTAN" data-layer-title="NATO">
+                                        <label class="form-check-label" for="nato">NATO</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="natojuris"
+                                            data-layer-name="Deep_Rest:OTAN_EEZ_ECS"
+                                            data-layer-title="NATO members jurisdictions">
+                                        <label class="form-check-label" for="natojuris">NATO members
+                                            jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="aosis"
+                                            data-layer-name="Deep_Rest:AOSIS" data-layer-title="AOSIS">
+                                        <label class="form-check-label" for="aosis">AOSIS</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="aosisjuris"
+                                            data-layer-name="Deep_Rest:AOSIS_EEZ_ECS"
+                                            data-layer-title="AOSIS jurisdictions">
+                                        <label class="form-check-label" for="aosisjuris">AOSIS jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="caricom"
+                                            data-layer-name="Deep_Rest:CARICOM" data-layer-title="CARICOM">
+                                        <label class="form-check-label" for="caricom">CARICOM</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="caricomjuris"
+                                            data-layer-name="Deep_Rest:CARICOM_EEZ_ECS"
+                                            data-layer-title="CARICOM jurisdictions">
+                                        <label class="form-check-label" for="caricomjuris">CARICOM jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="sids"
+                                            data-layer-name="Deep_Rest:SIDS" data-layer-title="SIDS">
+                                        <label class="form-check-label" for="sids">SIDS</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="sidsjuris"
+                                            data-layer-name="Deep_Rest:SIDS_EEZ_ECS"
+                                            data-layer-title="SIDS jurisdictions">
+                                        <label class="form-check-label" for="sidsjuris">SIDS jurisdictions</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="psids"
+                                            data-layer-name="Deep_Rest:PSIDS" data-layer-title="PSIDS">
+                                        <label class="form-check-label" for="psids">PSIDS</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input layer-checkbox" id="psidsjuris"
+                                            data-layer-name="Deep_Rest:PSIDS_EEZ_ECS"
+                                            data-layer-title="PSIDS jurisdictions">
+                                        <label class="form-check-label" for="psidsjuris">PSIDS jurisdictions</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="contiguouszone" data-layer-name="Deep_Rest:contiguous" data-layer-title="Contiguous zone">
-                                <label class="form-check-label" for="contiguouszone">Contiguous zone</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="eez" data-layer-name="Deep_Rest:ZEE" data-layer-title="Exclusive Economic Zone (EEZ)">
-                                <label class="form-check-label" for="eez">Exclusive Economic Zone (EEZ)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="ecs" data-layer-name="Deep_Rest:ECS" data-layer-title="Extended Continental Shelf (ECS)">
-                                <label class="form-check-label" for="ecs">Extended Continental Shelf (ECS)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="archipelagic" data-layer-name="Deep_Rest:archipelagicas" data-layer-title="Archipelagic waters">
-                                <label class="form-check-label" for="archipelagic">Archipelagic waters</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="seabedarea" data-layer-name="Deep_Rest:area" data-layer-title="Area (seabed soil and subsoil)">
-                                <label class="form-check-label" for="seabedarea">Area (seabed soil and subsoil)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="highseas" data-layer-name="Deep_Rest:alta_mar" data-layer-title="High seas">
-                                <label class="form-check-label" for="highseas">High seas</label>
-                            </div>
-                            <!--
+                        </div>
+
+                        <div class="layer-category">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#jurisdictionsLayers" aria-expanded="false"
+                                        aria-controls="jurisdictionsLayers">
+                                        Jurisdictions and Maritime Boundaries
+                                    </button>
+                                </h2>
+                                <div id="jurisdictionsLayers" class="accordion-collapse collapse"
+                                    data-bs-parent="#layersAccordion">
+                                    <div class="accordion-body p-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input layer-checkbox"
+                                                id="territorialsea" data-layer-name="Deep_Rest:territorial"
+                                                data-layer-title="Territorial sea">
+                                            <label class="form-check-label" for="territorialsea">Territorial sea</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input layer-checkbox"
+                                                id="contiguouszone" data-layer-name="Deep_Rest:contiguous"
+                                                data-layer-title="Contiguous zone">
+                                            <label class="form-check-label" for="contiguouszone">Contiguous zone</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input layer-checkbox" id="eez"
+                                                data-layer-name="Deep_Rest:ZEE"
+                                                data-layer-title="Exclusive Economic Zone (EEZ)">
+                                            <label class="form-check-label" for="eez">Exclusive Economic Zone
+                                                (EEZ)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input layer-checkbox" id="ecs"
+                                                data-layer-name="Deep_Rest:ECS"
+                                                data-layer-title="Extended Continental Shelf (ECS)">
+                                            <label class="form-check-label" for="ecs">Extended Continental Shelf
+                                                (ECS)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input layer-checkbox"
+                                                id="archipelagic" data-layer-name="Deep_Rest:archipelagicas"
+                                                data-layer-title="Archipelagic waters">
+                                            <label class="form-check-label" for="archipelagic">Archipelagic
+                                                waters</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input layer-checkbox"
+                                                id="seabedarea" data-layer-name="Deep_Rest:area"
+                                                data-layer-title="Area (seabed soil and subsoil)">
+                                            <label class="form-check-label" for="seabedarea">Area (seabed soil and
+                                                subsoil)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input layer-checkbox" id="highseas"
+                                                data-layer-name="Deep_Rest:alta_mar" data-layer-title="High seas">
+                                            <label class="form-check-label" for="highseas">High seas</label>
+                                        </div>
+                                        <!--
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input layer-checkbox" id="disputes" data-layer-name="Deep_Rest:border_dispute" data-layer-title="Maritime border and disputes">
                                 <label class="form-check-label" for="disputes">Maritime border and disputes</label>
                             </div>-->
-                        </div>
-                    </div>
-                </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="layer-category">                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#governanceLayers" aria-expanded="false" aria-controls="governanceLayers">
-                            Governance
-                        </button>
-                    </h2>
-                    <div id="governanceLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
-                        <div class="accordion-body p-2">                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="msp" data-layer-name="Deep_Rest:MSP" data-layer-title="Marine spatial planning">
-                                <label class="form-check-label" for="msp">Marine spatial planning</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="mspjuris" data-layer-name="deep:MSP_juris" data-layer-title="Marine spatial planning Jurisdictions">
-                                <label class="form-check-label" for="mspjuris">Marine spatial planning jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="unclos" data-layer-name="Deep_Rest:UNCLOS" data-layer-title="UNCLOS maritime zones">
-                                <label class="form-check-label" for="unclos">UNCLOS maritime zones</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="fao" data-layer-name="Deep_Rest:FAO" data-layer-title="FAO fishing areas">
-                                <label class="form-check-label" for="fao">FAO fishing areas</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="nafo" data-layer-name="Deep_Rest:NAFO" data-layer-title="NAFO">
-                                <label class="form-check-label" for="nafo">NAFO</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="ices" data-layer-name="Deep_Rest:ICES" data-layer-title="ICES ecoregions">
-                                <label class="form-check-label" for="ices">ICES ecoregions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="icesstat" data-layer-name="Deep_Rest:ices_statistical" data-layer-title="ICES statistical areas">
-                                <label class="form-check-label" for="icesstat">ICES statistical areas</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="ascobans" data-layer-name="Deep_Rest:ASCOBANS" data-layer-title="ASCOBANS">
-                                <label class="form-check-label" for="ascobans">ASCOBANS</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="iho" data-layer-name="Deep_Rest:IHO" data-layer-title="Hydrographic Organization (Areas)">
-                                <label class="form-check-label" for="iho">Hydrographic Organization (Areas)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="goas" data-layer-name="Deep_Rest:GOAS" data-layer-title="Global Oceans and Seas (GOAS)">
-                                <label class="form-check-label" for="goas">Global Oceans and Seas (GOAS)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="unep" data-layer-name="deep:mares_regionales_unep" data-layer-title="UNEP Regional Seas">
-                                <label class="form-check-label" for="unep">UNEP Regional Seas</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="lme" data-layer-name="Deep_Rest:LME" data-layer-title="LME-Biogeographical Provinces">
-                                <label class="form-check-label" for="lme">LME-Biogeographical Provinces</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="meow" data-layer-name="Deep_Rest:MEOW" data-layer-title="Marine Ecoregions of the World (MEOW)">
-                                <label class="form-check-label" for="meow">Marine Ecoregions of the World (MEOW)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="ecoregions" data-layer-name="deep:Arctic_Ocean_Ecoregion_EU_WFD" data-layer-title="Ecoregions EU WFD">
-                                <label class="form-check-label" for="ecoregions">Ecoregions EU WFD</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="ospar" data-layer-name="deep:ospar_boundaries_2016" data-layer-title="OSPAR">
-                                <label class="form-check-label" for="ospar">OSPAR</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="rfbs" data-layer-name="Deep_Rest:rfbs" data-layer-title="Regional Fishery Bodies (1)">
-                                <label class="form-check-label" for="rfbs">Regional Fishery Bodies - Atlantic (1)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="rfbs2" data-layer-name="Deep_Rest:rfbs2" data-layer-title="Regional Fishery Bodies (2)">
-                                <label class="form-check-label" for="rfbs2">Regional Fishery Bodies - Atlantic (2)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="sargasso" data-layer-name="Deep_Rest:sargasso" data-layer-title="Sargasso Sea Commission">
-                                <label class="form-check-label" for="sargasso">Sargasso Sea Commission</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="stateislands" data-layer-name="Deep_Rest:state_islands" data-layer-title="State Islands">
-                                <label class="form-check-label" for="stateislands">State Islands</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="stateislandsjuris" data-layer-name="Deep_Rest:state_islands_EEZ" data-layer-title="State islands jurisdictions">
-                                <label class="form-check-label" for="stateislandsjuris">State islands jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="landlocked" data-layer-name="Deep_Rest:landlocked" data-layer-title="Landlocked developing countries">
-                                <label class="form-check-label" for="landlocked">Landlocked developing countries</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="developing" data-layer-name="Deep_Rest:developing" data-layer-title="Developing middle income">
-                                <label class="form-check-label" for="developing">Developing middle income</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="geographically" data-layer-name="Deep_Rest:geographically" data-layer-title="Geographically disadvantaged States">
-                                <label class="form-check-label" for="geographically">Geographically disadvantaged States</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="least" data-layer-name="Deep_Rest:least" data-layer-title="Least developed countries">
-                                <label class="form-check-label" for="least">Least developed countries</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="fragile" data-layer-name="Deep_Rest:fragile" data-layer-title="Fragile States">
-                                <label class="form-check-label" for="fragile">Fragile States</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="brics" data-layer-name="Deep_Rest:BRICS" data-layer-title="BRICS">
-                                <label class="form-check-label" for="brics">BRICS</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="bricsjuris" data-layer-name="Deep_Rest:BRICS_juris" data-layer-title="BRICS Jurisdictions">
-                                <label class="form-check-label" for="bricsjuris">BRICS Jurisdictions</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <div class="layer-category">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#governanceLayers"
+                                            aria-expanded="false" aria-controls="governanceLayers">
+                                            Governance
+                                        </button>
+                                    </h2>
+                                    <div id="governanceLayers" class="accordion-collapse collapse"
+                                        data-bs-parent="#layersAccordion">
+                                        <div class="accordion-body p-2">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="msp"
+                                                    data-layer-name="deep:MSP_countries_2"
+                                                    data-layer-title="Marine spatial planning">
+                                                <label class="form-check-label" for="msp">Marine spatial
+                                                    planning</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="mspjuris" data-layer-name="deep:MSP_juris_2"
+                                                    data-layer-title="Marine spatial planning Jurisdictions">
+                                                <label class="form-check-label" for="mspjuris">Marine spatial planning
+                                                    jurisdictions</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="unclos" data-layer-name="Deep_Rest:UNCLOS"
+                                                    data-layer-title="UNCLOS maritime zones">
+                                                <label class="form-check-label" for="unclos">UNCLOS maritime
+                                                    zones</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="fao"
+                                                    data-layer-name="Deep_Rest:FAO"
+                                                    data-layer-title="FAO fishing areas">
+                                                <label class="form-check-label" for="fao">FAO fishing areas</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="nafo"
+                                                    data-layer-name="Deep_Rest:NAFO" data-layer-title="NAFO">
+                                                <label class="form-check-label" for="nafo">NAFO</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="ices"
+                                                    data-layer-name="Deep_Rest:ICES" data-layer-title="ICES ecoregions">
+                                                <label class="form-check-label" for="ices">ICES ecoregions</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="icesstat" data-layer-name="Deep_Rest:ices_statistical"
+                                                    data-layer-title="ICES statistical areas">
+                                                <label class="form-check-label" for="icesstat">ICES statistical
+                                                    areas</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="ascobans" data-layer-name="Deep_Rest:ASCOBANS"
+                                                    data-layer-title="ASCOBANS">
+                                                <label class="form-check-label" for="ascobans">ASCOBANS</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="iho"
+                                                    data-layer-name="Deep_Rest:IHO"
+                                                    data-layer-title="Hydrographic Organization (Areas)">
+                                                <label class="form-check-label" for="iho">Hydrographic Organization
+                                                    (Areas)</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="goas"
+                                                    data-layer-name="Deep_Rest:GOAS"
+                                                    data-layer-title="Global Oceans and Seas (GOAS)">
+                                                <label class="form-check-label" for="goas">Global Oceans and Seas
+                                                    (GOAS)</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="unep"
+                                                    data-layer-name="deep:mares_regionales_unep"
+                                                    data-layer-title="UNEP Regional Seas">
+                                                <label class="form-check-label" for="unep">UNEP Regional Seas</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="lme"
+                                                    data-layer-name="Deep_Rest:LME"
+                                                    data-layer-title="LME-Biogeographical Provinces">
+                                                <label class="form-check-label" for="lme">LME-Biogeographical
+                                                    Provinces</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="meow"
+                                                    data-layer-name="Deep_Rest:MEOW"
+                                                    data-layer-title="Marine Ecoregions of the World (MEOW)">
+                                                <label class="form-check-label" for="meow">Marine Ecoregions of the
+                                                    World (MEOW)</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="ecoregions" data-layer-name="deep:Arctic_Ocean_Ecoregion_EU_WFD"
+                                                    data-layer-title="Ecoregions EU WFD">
+                                                <label class="form-check-label" for="ecoregions">Ecoregions EU
+                                                    WFD</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="ospar" data-layer-name="deep:ospar_boundaries_2016"
+                                                    data-layer-title="OSPAR">
+                                                <label class="form-check-label" for="ospar">OSPAR</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox" id="rfbs"
+                                                    data-layer-name="Deep_Rest:rfbs"
+                                                    data-layer-title="Regional Fishery Bodies (1)">
+                                                <label class="form-check-label" for="rfbs">Regional Fishery Bodies -
+                                                    Atlantic (1)</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="rfbs2" data-layer-name="Deep_Rest:rfbs2"
+                                                    data-layer-title="Regional Fishery Bodies (2)">
+                                                <label class="form-check-label" for="rfbs2">Regional Fishery Bodies -
+                                                    Atlantic (2)</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="rfbs3" data-layer-name="deep:RFBs_Pacífico"
+                                                    data-layer-title="Regional Fishery Bodies - Pacífico ">
+                                                <label class="form-check-label" for="rfbs3">Regional Fishery Bodies -
+                                                    Pacífico </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="sargasso" data-layer-name="Deep_Rest:sargasso"
+                                                    data-layer-title="Sargasso Sea Commission">
+                                                <label class="form-check-label" for="sargasso">Sargasso Sea
+                                                    Commission</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="stateislands" data-layer-name="Deep_Rest:state_islands"
+                                                    data-layer-title="State Islands">
+                                                <label class="form-check-label" for="stateislands">State Islands</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="stateislandsjuris" data-layer-name="Deep_Rest:state_islands_EEZ"
+                                                    data-layer-title="State islands jurisdictions">
+                                                <label class="form-check-label" for="stateislandsjuris">State islands
+                                                    jurisdictions</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="landlocked" data-layer-name="Deep_Rest:landlocked"
+                                                    data-layer-title="Landlocked developing countries">
+                                                <label class="form-check-label" for="landlocked">Landlocked developing
+                                                    countries</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="developing" data-layer-name="Deep_Rest:developing"
+                                                    data-layer-title="Developing middle income">
+                                                <label class="form-check-label" for="developing">Developing middle
+                                                    income</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="geographically" data-layer-name="Deep_Rest:geographically"
+                                                    data-layer-title="Geographically disadvantaged States">
+                                                <label class="form-check-label" for="geographically">Geographically
+                                                    disadvantaged States</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="least" data-layer-name="Deep_Rest:least"
+                                                    data-layer-title="Least developed countries">
+                                                <label class="form-check-label" for="least">Least developed
+                                                    countries</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="fragile" data-layer-name="Deep_Rest:fragile"
+                                                    data-layer-title="Fragile States">
+                                                <label class="form-check-label" for="fragile">Fragile States</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="brics" data-layer-name="deep:BRICS_countries"
+                                                    data-layer-title="BRICS">
+                                                <label class="form-check-label" for="brics">BRICS</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="bricsjuris" data-layer-name="deep:BRICS_jurisdictions"
+                                                    data-layer-title="BRICS Jurisdictions">
+                                                <label class="form-check-label" for="bricsjuris">BRICS
+                                                    Jurisdictions</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="bricsparters" data-layer-name="deep:BRICS_partner_countries"
+                                                    data-layer-title="BRICS partners">
+                                                <label class="form-check-label" for="bricsparters">BRICS
+                                                    partners</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input layer-checkbox"
+                                                    id="bricsjurispartners"
+                                                    data-layer-name="deep:BRICS_partner_countries_juris"
+                                                    data-layer-title="BRICS partners jurisdictions">
+                                                <label class="form-check-label" for="bricsjurispartners">BRICS partners
+                                                    jurisdictions</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-            <div class="layer-category">                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#usesLayers" aria-expanded="false" aria-controls="usesLayers">
-                            Uses and Activities
-                        </button>
-                    </h2>
-                    <div id="usesLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
-                        <div class="accordion-body p-2">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="captureProduction" data-layer-name="Deep_Rest:capture_production" data-layer-title="Capture production by country">
-                                <label class="form-check-label" for="captureProduction">Capture production by country</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="captureProductionJuris" data-layer-name="Deep_Rest:capture_production_juris" data-layer-title="Capture production. Jurisdictions">
-                                <label class="form-check-label" for="captureProductionJuris">Capture production. Jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="fisheries" data-layer-name="Deep_Rest:fisheries" data-layer-title="Major historical deep-sea fisheries">
-                                <label class="form-check-label" for="fisheries">Major historical deep-sea fisheries</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="iuuFishing" data-layer-name="Deep_Rest:iuu_fishing" data-layer-title="IUU fishing">
-                                <label class="form-check-label" for="iuuFishing">IUU fishing</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="iuuAtlanticJuris" data-layer-name="Deep_Rest:iuu_jurisd" data-layer-title="IUU fishing Jurisdictions">
-                                <label class="form-check-label" for="iuuAtlanticJuris">IUU fishing Jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="moratorium" data-layer-name="Deep_Rest:moratorium" data-layer-title="Moratorium on deep sea mining">
-                                <label class="form-check-label" for="moratorium">Moratorium on deep sea mining</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="mineralRents" data-layer-name="Deep_Rest:mineral_rents" data-layer-title="Mineral Rents">
-                                <label class="form-check-label" for="mineralRents">Mineral Rents</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="sponsor" data-layer-name="Deep_Rest:sponsor" data-layer-title="Sponsoring States">
-                                <label class="form-check-label" for="sponsor">Sponsoring States</label>
-                            </div>
-                            <div class="form-check sub-layer">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="pns" data-layer-name="Deep_Rest:PNS" data-layer-title="Polymetallic nodules">
-                                <label class="form-check-label" for="pns">Polymetallic nodules</label>
-                            </div>
-                            <div class="form-check sub-layer">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="sulphides" data-layer-name="Deep_Rest:sulphides" data-layer-title="Polymetallic sulphides">
-                                <label class="form-check-label" for="sulphides">Polymetallic sulphides</label>
-                            </div>
-                            <div class="form-check sub-layer">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="ferroman" data-layer-name="Deep_Rest:ferroman" data-layer-title="Cobalt-rich ferromanganese crusts">
-                                <label class="form-check-label" for="ferroman">Cobalt-rich ferromanganese crusts</label>
-                            </div>
-                            <div class="form-check sub-layer">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="cobaltPoly" data-layer-name="Deep_Rest:cobalt_poly" data-layer-title="Cobalt-rich polymetallic crusts">
-                                <label class="form-check-label" for="cobaltPoly">Cobalt-rich polymetallic crusts</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="genResoCount" data-layer-name="Deep_Rest:gen_reso_count" data-layer-title="Patents by country">
-                                <label class="form-check-label" for="genResoCount">Patents by country</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="genResoJuris" data-layer-name="Deep_Rest:gen_reso_juris" data-layer-title="Patents by country. Jurisdictions">
-                                <label class="form-check-label" for="genResoJuris">Patents by country. Jurisdictions</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="geneEdiCountries" data-layer-name="Deep_Rest:gene_edi_countries" data-layer-title="Editing capacity">
-                                <label class="form-check-label" for="geneEdiCountries">Editing capacity</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="geneEdiJuris" data-layer-name="Deep_Rest:gene_edi_juris" data-layer-title="Editing capacity. Jurisdiction">
-                                <label class="form-check-label" for="geneEdiJuris">Editing capacity. Jurisdicción</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="submarineCable" data-layer-name="deep:submarine_cables" data-layer-title="Submarine Cable">
-                                <label class="form-check-label" for="submarineCable">Submarine Cable</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                <div class="layer-category">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#usesLayers"
+                                                aria-expanded="false" aria-controls="usesLayers">
+                                                Uses and Activities
+                                            </button>
+                                        </h2>
+                                        <div id="usesLayers" class="accordion-collapse collapse"
+                                            data-bs-parent="#layersAccordion">
+                                            <div class="accordion-body p-2">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="captureProduction"
+                                                        data-layer-name="Deep_Rest:capture_production"
+                                                        data-layer-title="Capture production by country - Atlantic">
+                                                    <label class="form-check-label" for="captureProduction">Capture
+                                                        production by country - Atlantic</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="captureProductionJuris"
+                                                        data-layer-name="Deep_Rest:capture_production_juris"
+                                                        data-layer-title="Capture production. Jurisdictions - Atlantic">
+                                                    <label class="form-check-label" for="captureProductionJuris">Capture
+                                                        production. Jurisdictions - Atlantic</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="captureProductionpacific"
+                                                        data-layer-name="deep:capture_production_Pacific_countries"
+                                                        data-layer-title="Capture production by country - Pacific">
+                                                    <label class="form-check-label"
+                                                        for="captureProductionpacific">Capture production by country -
+                                                        Pacific</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="captureProductionJurispacific"
+                                                        data-layer-name="deep:capture_production_Pacific_EEZ_ECS"
+                                                        data-layer-title="Capture production. Jurisdictions - Pacific">
+                                                    <label class="form-check-label"
+                                                        for="captureProductionJurispacific">Capture production.
+                                                        Jurisdictions - Pacific</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="fisheries" data-layer-name="Deep_Rest:fisheries"
+                                                        data-layer-title="Major historical deep-sea fisheries">
+                                                    <label class="form-check-label" for="fisheries">Major historical
+                                                        deep-sea fisheries</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="iuuFishing" data-layer-name="Deep_Rest:iuu_fishing"
+                                                        data-layer-title="IUU Fishing Risk Index">
+                                                    <label class="form-check-label" for="iuuFishing">IUU fishing</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="iuuAtlanticJuris" data-layer-name="Deep_Rest:iuu_jurisd"
+                                                        data-layer-title="IUU Fishing Risk Index">
+                                                    <label class="form-check-label" for="iuuAtlanticJuris">IUU fishing
+                                                        Jurisdictions</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="moratorium" data-layer-name="Deep_Rest:moratorium"
+                                                        data-layer-title="Moratorium on deep sea mining">
+                                                    <label class="form-check-label" for="moratorium">Moratorium on deep
+                                                        sea mining</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="mineralRents" data-layer-name="Deep_Rest:mineral_rents"
+                                                        data-layer-title="Mineral Rents">
+                                                    <label class="form-check-label" for="mineralRents">Mineral
+                                                        Rents</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="sponsor" data-layer-name="Deep_Rest:sponsor"
+                                                        data-layer-title="Sponsoring States">
+                                                    <label class="form-check-label" for="sponsor">Sponsoring
+                                                        States</label>
+                                                </div>
+                                                <div class="form-check sub-layer">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="pns" data-layer-name="Deep_Rest:PNS"
+                                                        data-layer-title="Polymetallic nodules">
+                                                    <label class="form-check-label" for="pns">Polymetallic
+                                                        nodules</label>
+                                                </div>
+                                                <div class="form-check sub-layer">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="sulphides" data-layer-name="Deep_Rest:sulphides"
+                                                        data-layer-title="Polymetallic sulphides">
+                                                    <label class="form-check-label" for="sulphides">Polymetallic
+                                                        sulphides</label>
+                                                </div>
+                                                <div class="form-check sub-layer">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="ferroman" data-layer-name="Deep_Rest:ferroman"
+                                                        data-layer-title="Cobalt-rich ferromanganese crusts">
+                                                    <label class="form-check-label" for="ferroman">Cobalt-rich
+                                                        ferromanganese crusts</label>
+                                                </div>
+                                                <div class="form-check sub-layer">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="cobaltPoly" data-layer-name="Deep_Rest:cobalt_poly"
+                                                        data-layer-title="Cobalt-rich polymetallic crusts">
+                                                    <label class="form-check-label" for="cobaltPoly">Cobalt-rich
+                                                        polymetallic crusts</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="genResoCount" data-layer-name="Deep_Rest:gen_reso_count"
+                                                        data-layer-title="Patents by country">
+                                                    <label class="form-check-label" for="genResoCount">Patents by
+                                                        country</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="genResoJuris" data-layer-name="Deep_Rest:gen_reso_juris"
+                                                        data-layer-title="Patents by country. Jurisdictions">
+                                                    <label class="form-check-label" for="genResoJuris">Patents by
+                                                        country. Jurisdictions</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="geneEdiCountries"
+                                                        data-layer-name="Deep_Rest:gene_edi_countries"
+                                                        data-layer-title="Editing capacity">
+                                                    <label class="form-check-label" for="geneEdiCountries">Editing
+                                                        capacity</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="geneEdiJuris" data-layer-name="Deep_Rest:gene_edi_juris"
+                                                        data-layer-title="Editing capacity. Jurisdiction">
+                                                    <label class="form-check-label" for="geneEdiJuris">Editing capacity.
+                                                        Jurisdicción</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="submarineCable" data-layer-name="deep:submarine_cables"
+                                                        data-layer-title="Submarine Cable">
+                                                    <label class="form-check-label" for="submarineCable">Submarine
+                                                        Cable</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#environmentLayers" aria-expanded="false" aria-controls="environmentLayers">
-                            Environment and Conservation
-                        </button>
-                    </h2>
-                    <div id="environmentLayers" class="accordion-collapse collapse" data-bs-parent="#layersAccordion">
-                        <div class="accordion-body p-2">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="hotspots" data-layer-name="Deep_Rest:hotspots" data-layer-title="Biodiversity hotspots">
-                                <label class="form-check-label" for="hotspots">Biodiversity hotspots</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input layer-checkbox" id="pssa" data-layer-name="Deep_Rest:PSSA" data-layer-title="Particularly Sensitive Sea Areas (PSSA)">
-                                <label class="form-check-label" for="pssa">Particularly Sensitive Sea Areas (PSSA)</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>            </div>
-        </aside>
-        <!-- Shepherd.js -->
-        <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.1.1/dist/js/shepherd.min.js"></script>
-        <script>
-            // Check if this is the first visit
-            if (!localStorage.getItem('tourCompleted')) {
-                // Initialize Shepherd
-                const tour = new Shepherd.Tour({
-                    defaultStepOptions: {
-                        cancelIcon: {
-                            enabled: true
-                        },
-                        classes: 'shepherd-theme-arrows',
-                        scrollTo: { behavior: 'smooth', block: 'center' }
-                    }
-                });
-
-                // Add steps to the tour
-                tour.addStep({
-                    id: 'welcome',
-                    text: 'Welcome to DEEP-REST Atlas! Let us show you around.',
-                    attachTo: {
-                        element: '.container-fluid',
-                        on: 'bottom'
-                    },
-                    buttons: [
-                        {
-                            text: 'Skip',
-                            action: tour.complete
-                        },
-                        {
-                            text: 'Next',
-                            action: tour.next
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#environmentLayers"
+                                                aria-expanded="false" aria-controls="environmentLayers">
+                                                Environment and Conservation
+                                            </button>
+                                        </h2>
+                                        <div id="environmentLayers" class="accordion-collapse collapse"
+                                            data-bs-parent="#layersAccordion">
+                                            <div class="accordion-body p-2">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="hotspots" data-layer-name="Deep_Rest:hotspots"
+                                                        data-layer-title="Biodiversity hotspots">
+                                                    <label class="form-check-label" for="hotspots">Biodiversity
+                                                        hotspots</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="pssa" data-layer-name="Deep_Rest:PSSA"
+                                                        data-layer-title="Particularly Sensitive Sea Areas (PSSA)">
+                                                    <label class="form-check-label" for="pssa">Particularly Sensitive
+                                                        Sea Areas - Atlantic (PSSA)</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input layer-checkbox"
+                                                        id="pssa2" data-layer-name="deep:PSSA_Pacific"
+                                                        data-layer-title="Particularly Sensitive Sea Areas (PSSA)">
+                                                    <label class="form-check-label" for="pssa2">Particularly Sensitive
+                                                        Sea Areas - Pacific (PSSA)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            </aside>
+            <!-- Shepherd.js -->
+            <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.1.1/dist/js/shepherd.min.js"></script>
+            <script>
+                // Check if this is the first visit
+                if (!localStorage.getItem('tourCompleted')) {
+                    // Initialize Shepherd
+                    const tour = new Shepherd.Tour({
+                        defaultStepOptions: {
+                            cancelIcon: {
+                                enabled: true
+                            },
+                            classes: 'shepherd-theme-arrows',
+                            scrollTo: { behavior: 'smooth', block: 'center' }
                         }
-                    ]
-                });
+                    });
 
-                tour.addStep({
-                    id: 'layers-panel',
-                    text: 'This panel contains all available map layers organized by categories.',
-                    attachTo: {
-                        element: '#sidebar',
-                        on: 'right'
-                    },
-                    buttons: [
-                        {
-                            text: 'Back',
-                            action: tour.back
+                    // Add steps to the tour
+                    tour.addStep({
+                        id: 'welcome',
+                        text: 'Welcome to DEEP-REST Atlas! Let us show you around.',
+                        attachTo: {
+                            element: '.container-fluid',
+                            on: 'bottom'
                         },
-                        {
-                            text: 'Next',
-                            action: tour.next
-                        }
-                    ]
-                });
+                        buttons: [
+                            {
+                                text: 'Skip',
+                                action: tour.complete
+                            },
+                            {
+                                text: 'Next',
+                                action: tour.next
+                            }
+                        ]
+                    });
 
-                tour.addStep({
-                    id: 'base-layers',
-                    text: 'Here you can choose different base maps like Satellite imagery, OpenStreetMap, or Ocean base maps.',
-                    attachTo: {
-                        element: '#baseLayers',
-                        on: 'right'
-                    },
-                    buttons: [
-                        {
-                            text: 'Back',
-                            action: tour.back
+                    tour.addStep({
+                        id: 'layers-panel',
+                        text: 'This panel contains all available map layers organized by categories.',
+                        attachTo: {
+                            element: '#sidebar',
+                            on: 'right'
                         },
-                        {
-                            text: 'Next',
-                            action: tour.next
-                        }
-                    ]
-                });
+                        buttons: [
+                            {
+                                text: 'Back',
+                                action: tour.back
+                            },
+                            {
+                                text: 'Next',
+                                action: tour.next
+                            }
+                        ]
+                    });
 
-                tour.addStep({
-                    id: 'seabed-layers',
-                    text: 'Explore study sites and seabed mining related layers in this section.',
-                    attachTo: {
-                        element: '#seabedLayers',
-                        on: 'right'
-                    },
-                    buttons: [
-                        {
-                            text: 'Back',
-                            action: tour.back
+                    tour.addStep({
+                        id: 'base-layers',
+                        text: 'Here you can choose different base maps like Satellite imagery, OpenStreetMap, or Ocean base maps.',
+                        attachTo: {
+                            element: '#baseLayers',
+                            on: 'right'
                         },
-                        {
-                            text: 'Next',
-                            action: tour.next
-                        }
-                    ]
-                });
+                        buttons: [
+                            {
+                                text: 'Back',
+                                action: tour.back
+                            },
+                            {
+                                text: 'Next',
+                                action: tour.next
+                            }
+                        ]
+                    });
 
-                
-
-                tour.addStep({
-                    id: 'final',
-                    text: 'You can toggle layers on/off using the checkboxes. Enjoy exploring the DEEP-REST Atlas!',
-                    attachTo: {
-                        element: '.form-check:first-of-type',
-                        on: 'right'
-                    },
-                    buttons: [
-                        {
-                            text: 'Back',
-                            action: tour.back
+                    tour.addStep({
+                        id: 'seabed-layers',
+                        text: 'Explore study sites and seabed mining related layers in this section.',
+                        attachTo: {
+                            element: '#seabedLayers',
+                            on: 'right'
                         },
-                        {
-                            text: 'Done',
-                            action: tour.complete
-                        }
-                    ]
-                });
+                        buttons: [
+                            {
+                                text: 'Back',
+                                action: tour.back
+                            },
+                            {
+                                text: 'Next',
+                                action: tour.next
+                            }
+                        ]
+                    });
 
-                // Start the tour
-                tour.start();
 
-                // Mark the tour as completed
-                tour.on('complete', () => {
-                    localStorage.setItem('tourCompleted', 'true');
-                });
-            }
-        </script>
-        <div class="main-content d-flex flex-column h-100">                <header class="text-white py-2 px-3" style="background: linear-gradient(to right, #0865a3, white);">
+
+                    tour.addStep({
+                        id: 'final',
+                        text: 'You can toggle layers on/off using the checkboxes. Enjoy exploring the DEEP-REST Atlas!',
+                        attachTo: {
+                            element: '.form-check:first-of-type',
+                            on: 'right'
+                        },
+                        buttons: [
+                            {
+                                text: 'Back',
+                                action: tour.back
+                            },
+                            {
+                                text: 'Done',
+                                action: tour.complete
+                            }
+                        ]
+                    });
+
+                    // Start the tour
+                    tour.start();
+
+                    // Mark the tour as completed
+                    tour.on('complete', () => {
+                        localStorage.setItem('tourCompleted', 'true');
+                    });
+                }
+            </script>
+            <div class="main-content d-flex flex-column h-100">
+                <header class="text-white py-2 px-3" style="background: linear-gradient(to right, #0865a3, white);">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-globe fs-4 me-2"></i>
                             <h1 class="h4 mb-0">DEEP-REST</h1>
-                        </div>                        <div class="btn-group">
-                            <button class="btn btn-lg me-3" id="homeButton" onclick="window.location.href='index.html'" title="Return to homepage">
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-lg me-3" id="homeButton" onclick="window.location.href='index.html'"
+                                title="Return to homepage">
                                 <i class="fas fa-home"></i>
                             </button>
-                            <button id="globalView" class="btn btn-deep-rest btn-sm"><i class="fas fa-globe-americas me-1"></i> Global View</button>
-                            <button id="arcticView" class="btn btn-deep-rest btn-sm"><i class="fas fa-snowflake me-1"></i> Arctic View</button>
-                            <button id="atlanticView" class="btn btn-deep-rest btn-sm"><i class="fas fa-water me-1"></i> Atlantic Ocean</button>
-                            <button id="pacificView" class="btn btn-deep-rest btn-sm"><i class="fas fa-water me-1"></i> Pacific Ocean</button>
+                            <button id="globalView" class="btn btn-deep-rest btn-sm"><i
+                                    class="fas fa-globe-americas me-1"></i> Global View</button>
+                            <button id="arcticView" class="btn btn-deep-rest btn-sm"><i
+                                    class="fas fa-snowflake me-1"></i> Arctic View</button>
+                            <button id="atlanticView" class="btn btn-deep-rest btn-sm"><i class="fas fa-water me-1"></i>
+                                Atlantic Ocean</button>
+                            <button id="pacificView" class="btn btn-deep-rest btn-sm"><i class="fas fa-water me-1"></i>
+                                Pacific Ocean</button>
                         </div>
                     </div>
                 </header>
@@ -610,9 +900,13 @@
                     </div>
                     <div class="legend-content">
                         <!-- El contenido de la leyenda se insertará aquí dinámicamente -->
-                    </div>                </div>                <footer style="background-color: #212529;" class="text-white py-2 px-3">
+                    </div>
+                </div>
+                <footer style="background-color: #212529;" class="text-white py-2 px-3">
                     <div class="container text-center">
-                        <p class="small mb-0">© 2025 DEEP-REST Project. All rights reserved. | Developed by <a href="https://escaladigital.es" class="text-white text-decoration-none" target="_blank">Escala Digital</a></p>
+                        <p class="small mb-0">© 2025 DEEP-REST Project. All rights reserved. | Developed by <a
+                                href="https://escaladigital.es" class="text-white text-decoration-none"
+                                target="_blank">Escala Digital</a></p>
                     </div>
                 </footer>
             </div>
@@ -622,4 +916,5 @@
     <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

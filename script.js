@@ -326,11 +326,16 @@ document.addEventListener('DOMContentLoaded', () => {    // Configuración del s
                                 params: {
                                     'LAYERS': layerName,
                                     'VERSION': '1.1.1',
-                                    'SRS': 'EPSG:3857'
+                                    'SRS': 'EPSG:3857',
+                                    'FORMAT': 'image/png' // Forzar formato consistente para evitar problemas de decodificación
                                 },
                                 serverType: 'geoserver',
                                 crossOrigin: 'anonymous',
                                 projection: 'EPSG:3857'
+                            });
+                            // Logging de diagnóstico por si falla la carga de la imagen
+                            wmsSource.on('imageloaderror', () => {
+                                console.error('Fallo al cargar la imagen WMS de la capa', layerName, '- revise si la respuesta es una imagen válida en la red (CORS, tamaño o error HTTP).');
                             });
                             const wmsLayer = new ol.layer.Image({
                                 source: wmsSource,
